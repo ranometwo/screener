@@ -1,0 +1,220 @@
+EvenTrade – Business Requirements Document (BRD)
+1. Purpose
+
+EvenTrade is a Chrome extension sidebar for Screener.in that enables users to:
+
+Organize stocks into persistent watchlists
+
+Quickly open charts and track priorities
+
+Extract and reuse symbols from Screener pages
+
+Work efficiently without leaving Screener
+
+The goal is to reduce friction between screening → organizing → acting.
+
+2. In Scope
+2.1 Sidebar Platform
+
+Docked, resizable sidebar injected into Screener.in pages
+
+Sidebar opens/closes via extension icon
+
+Page content shifts left (no overlay)
+
+2.2 Watchlists
+
+Create, rename, delete watchlists
+
+Persist watchlists across sessions and tabs
+
+View all watchlists (home view)
+
+Open individual watchlist (detail view)
+
+2.3 Symbol Management
+
+Add symbols to watchlists:
+
+From scanner results
+
+Manually (EXCHANGE:SYMBOL)
+
+Remove symbols from watchlists
+
+Deduplicate symbols automatically
+
+2.4 Symbol Actions
+
+Open Screener chart (SC) in new tab
+
+Open TradingView chart (TV) in new tab
+
+Bookmark symbols with a single color:
+
+Red / Yellow / Green
+
+Highlight last-opened symbol
+
+2.5 Filtering
+
+Filter symbols within a watchlist by bookmark color
+
+Filters apply only to the active watchlist
+
+2.6 Symbol Scanner
+
+Scan Screener pages to extract symbols
+
+Fetch all pages of a screener
+
+Deduplicate extracted symbols
+
+Copy symbols in comma-separated format
+
+Save scanned symbols as a watchlist
+
+2.7 Settings
+
+Theme toggle (Light/Dark)
+
+CSV import/export of watchlists
+
+Accessed via settings icon in header
+
+3. Out of Scope
+
+Price data (LTP, % change, charts inside sidebar)
+
+Overlay or floating UI
+
+Dropdown-based watchlist selection
+
+Real-time market data
+
+Authentication or backend services
+
+4. Functional Requirements
+FR-1 Sidebar Behavior
+
+Sidebar docks to the right of Screener.in
+
+Resizable via drag separator
+
+Width persists across sessions
+
+FR-2 Watchlist Management
+
+Users can create, rename, delete watchlists
+
+Watchlists persist via chrome.storage.sync
+
+Overwrite confirmation when saving an existing name
+
+FR-3 Symbol Rows
+
+Each symbol supports:
+
+Bookmark color (one at a time)
+
+SC and TV actions
+
+Last-opened symbol is visually highlighted
+
+FR-4 Symbol Scanner
+
+Extract symbols from Screener tables
+
+Support paginated screeners
+
+Provide copy + save functionality
+
+Scanner results are temporary unless saved
+
+FR-5 Import / Export
+
+Export watchlists to CSV
+
+Import watchlists from CSV
+
+Handle name collisions with confirmation
+
+FR-6 Settings
+
+Settings accessible via header icon
+
+Theme preference persisted
+
+5. Non-Functional Requirements
+Performance
+
+Sidebar should open in <200ms
+
+Symbol scanning should not block page interaction
+
+Reliability
+
+Sidebar must not crash if storage is unavailable
+
+Fail gracefully with user feedback
+
+Usability
+
+Actions must be discoverable via hover or icons
+
+No blocking modals except confirmations
+
+Compatibility
+
+Works on all Screener.in pages
+
+Supports multiple Screener tabs simultaneously
+
+6. Data & Storage
+
+Storage mechanism: chrome.storage.sync
+
+Stored entities:
+
+Watchlists
+
+Symbols
+
+Bookmark colors
+
+Sidebar width
+
+Theme preference
+
+No external APIs or servers.
+
+7. Success Criteria
+
+User can open sidebar, create a watchlist, and add symbols within 30 seconds
+
+Symbols copied from scanner are accurate and deduplicated
+
+Watchlists persist across browser restarts
+
+Sidebar does not interfere with Screener functionality
+
+8. Risks & Mitigations
+Risk	Mitigation
+Screener DOM changes	Use resilient selectors and graceful fallback
+Storage quota limits	Provide CSV export/import
+Sidebar performance	Lazy-load scanner and settings
+9. Assumptions
+
+Screener.in markup provides company links
+
+TradingView URLs can be generated client-side
+
+Users are Chrome-based
+
+10. Stakeholders
+
+Product: Feature definition & UX goals
+
+Engineering: Implementation
+
+QA: Validation against functional requirements
