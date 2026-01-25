@@ -420,8 +420,8 @@ class Sidebar {
             <h3>Settings</h3>
             <div style="margin-bottom:15px">
                 <label><input type="checkbox" id="chk-theme" ${Store.state.settings.theme === 'dark' ? 'checked' : ''}> Dark Mode</label><br>
-                <label><input type="checkbox" id="chk-wl" ${Store.state.settings.showColWatchlist ? 'checked' : ''}> Show Watch Column</label><br>
-                <label><input type="checkbox" id="chk-tv" ${Store.state.settings.showColTv ? 'checked' : ''}> Show Chart Column</label>
+                <label><input type="checkbox" id="chk-wl" ${Store.state.settings.showColWatchlist ? 'checked' : ''}> Show 'WList' (Add to Watchlist) Column</label><br>
+                <label><input type="checkbox" id="chk-tv" ${Store.state.settings.showColTv ? 'checked' : ''}> Show 'TrVw' (TradingView) Column</label>
             </div>
             <hr style="border:0; border-top:1px solid var(--et-border);">
             <h4>Data Management</h4>
@@ -485,7 +485,15 @@ const Injector = {
   },
 
   injectHeaders(table, force) {
-    const theadRow = table.querySelector("thead tr");
+    let theadRow = table.querySelector("thead tr");
+    if (!theadRow) {
+      // Fallback: Check if the first row in tbody (or table) has <th> elements
+      const firstRow = table.querySelector("tr");
+      if (firstRow && firstRow.querySelector("th")) {
+        theadRow = firstRow;
+      }
+    }
+
     if (!theadRow) return;
 
     let wlHeader = theadRow.querySelector('.et-head-wl');
@@ -493,7 +501,7 @@ const Injector = {
     if (Store.state.settings.showColWatchlist && !wlHeader) {
       wlHeader = document.createElement("th");
       wlHeader.className = 'et-head-wl';
-      wlHeader.innerText = "Watch";
+      wlHeader.innerText = "WList";
       wlHeader.style = "width:50px; font-size:13px; text-align:center;";
       theadRow.insertBefore(wlHeader, theadRow.firstChild);
     }
@@ -503,7 +511,7 @@ const Injector = {
     if (Store.state.settings.showColTv && !tvHeader) {
       tvHeader = document.createElement("th");
       tvHeader.className = 'et-head-tv';
-      tvHeader.innerText = "Chart";
+      tvHeader.innerText = "TrVw";
       tvHeader.style = "width:50px; font-size:13px; text-align:center;";
       wlHeader ? wlHeader.after(tvHeader) : theadRow.insertBefore(tvHeader, theadRow.firstChild);
     }
