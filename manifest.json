@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "EvenTrade - Screener.in Assistant",
-  "version": "2.0",
-  "description": "Advanced sidebar for Screener.in: Watchlists, Charting, and Scanner.",
+  "version": "2.1",
+  "description": "Advanced Sidebar and Table Tools for Screener.in",
   "permissions": [
     "storage"
   ],
