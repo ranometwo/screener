@@ -1,0 +1,26 @@
+/* Smooth transition for the main page content when sidebar opens */
+body {
+    transition: margin-right 0.2s ease-in-out;
+}
+
+/* Base variables for the extension (used inside Shadow DOM) */
+:host {
+    --et-bg: #ffffff;
+    --et-fg: #333333;
+    --et-border: #e0e0e0;
+    --et-accent: #2962ff;
+    /* TradingView Blue */
+    --et-accent-hover: #1e4bd1;
+    --et-row-hover: #f5f5f5;
+    --et-red: #ff5252;
+    --et-green: #4caf50;
+    --et-yellow: #ffc107;
+}
+
+/* Dark Mode Overrides */
+:host(.dark-mode) {
+    --et-bg: #131722;
+    --et-fg: #d1d4dc;
+    --et-border: #2a2e39;
+    --et-row-hover: #2a2e39;
+}

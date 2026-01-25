@@ -1,14 +1,42 @@
 {
-    "manifest_version": 3,
-    "name": "Screener.in to TradingView",
-    "version": "1.3",
-    "description": "Adds TradingView chart buttons to Screener.in stock and list pages.",
-    "host_permissions": ["https://www.screener.in/*"],
-    "content_scripts": [
-      {
-        "matches": ["https://www.screener.in/*"],
-        "js": ["content.js"]
-      }
-    ]
-  }
-  
+  "manifest_version": 3,
+  "name": "EvenTrade - Screener.in Assistant",
+  "version": "2.0",
+  "description": "Advanced sidebar for Screener.in: Watchlists, Charting, and Scanner.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.screener.in/*"
+  ],
+  "action": {
+    "default_title": "Toggle EvenTrade Sidebar"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.screener.in/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "style.css"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "style.css"
+      ],
+      "matches": [
+        "https://www.screener.in/*"
+      ]
+    }
+  ]
+}
