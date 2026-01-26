@@ -13,10 +13,15 @@ export class Sidebar {
     this.highlightedIndex = -1;
     this.isArmed = false;
     this.debouncedNavigate = Utils.debounce(this.navigateToSymbol.bind(this), 200);
+    this.isResizing = false;
+    this.startX = 0;
+    this.startWidth = 0;
+    this.handleResize = this.handleResize.bind(this);
+    this.stopResize = this.stopResize.bind(this);
   }
 
   async init() {
-    document.body.appendChild(this.host);
+    document.documentElement.appendChild(this.host);
     this.renderStyles();
     this.render();
     
@@ -38,6 +43,8 @@ export class Sidebar {
     // Sync highlight from URL initially and on history changes
     this.syncHighlightFromUrl();
     window.addEventListener('popstate', () => this.syncHighlightFromUrl());
+
+    this.setupResizeHandler();
   }
 
   renderStyles() {
@@ -48,11 +55,18 @@ export class Sidebar {
             #sidebar {
                 position: fixed; top: 0; right: 0; bottom: 0; width: ${Store.state.width}px;
                 background: var(--et-bg, #ffffff); color: var(--et-fg, #333333);
-                box-shadow: -2px 0 15px rgba(0,0,0,0.2);
-                transform: translateX(100%); transition: transform 0.2s ease;
+                /* box-shadow removed for dock style */
+                transform: translateX(100%); transition: transform 0.2s ease, width 0.1s ease; /* added width transition */
                 display: flex; flex-direction: column; z-index: 2147483647; border-left: 1px solid var(--et-border, #e0e0e0);
             }
             #sidebar.open { transform: translateX(0); }
+            #resize-handle {
+                position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
+                cursor: ew-resize; z-index: 2147483648;
+                background: transparent;
+                transition: background 0.2s;
+            }
+            #resize-handle:hover { background: rgba(0,0,0,0.1); }
             header { padding: 15px; border-bottom: 1px solid var(--et-border, #e0e0e0); display: flex; justify-content: space-between; align-items: center; background: var(--et-bg, #ffffff); }
             h2 { margin: 0; font-size: 18px; font-weight: 700; }
             .icon-btn { background: transparent; border: none; cursor: pointer; color: var(--et-fg, #333333); padding: 5px; opacity: 0.7; }
@@ -97,6 +111,7 @@ export class Sidebar {
       this.shadow.appendChild(container);
     }
     container.innerHTML = `
+            <div id="resize-handle" title="Drag to resize"></div>
             <header>
                 <h2>EvenTrade</h2>
                 <div style="display:flex; gap:5px;">
@@ -444,8 +459,94 @@ export class Sidebar {
   }
 
   toggle() { Store.state.isOpen = !Store.state.isOpen; Store.save(); Store.state.isOpen ? this.open() : this.close(); }
-  open() { this.shadow.getElementById('sidebar').classList.add('open'); document.body.style.marginRight = `${Store.state.width}px`; }
-  close() { this.shadow.getElementById('sidebar').classList.remove('open'); document.body.style.marginRight = '0'; }
+
+  open() {
+    this.shadow.getElementById('sidebar').classList.add('open');
+    this.updatePageLayout(Store.state.width);
+  }
+
+  close() {
+    this.shadow.getElementById('sidebar').classList.remove('open');
+    this.updatePageLayout(0);
+  }
+
+  updatePageLayout(width) {
+    const isTv = window.location.hostname.includes('tradingview.com');
+    if (isTv) {
+      // TradingView: Resize body width to force layout recalculation
+      // We use 100vw - width because TV uses fixed positioning relative to viewport often
+      // We also use transform: translateZ(0) to force body to be the containing block for fixed elements (like the layout sensor)
+      if (width > 0) {
+        document.body.style.width = `calc(100vw - ${width}px)`;
+        document.body.style.transform = 'translateZ(0)';
+        // Trigger resize to ensure TV re-calculates immediately
+        window.dispatchEvent(new Event('resize'));
+      } else {
+        document.body.style.width = '';
+        document.body.style.transform = '';
+        window.dispatchEvent(new Event('resize'));
+      }
+    } else {
+      // Screener.in: Margin Right works fine
+      document.body.style.marginRight = width > 0 ? `${width}px` : '0';
+      document.body.style.width = ''; // Reset width
+    }
+  }
+
+  setupResizeHandler() {
+    const handle = this.shadow.getElementById('resize-handle');
+    if (!handle) return;
+
+    handle.addEventListener('mousedown', (e) => {
+      e.preventDefault(); // update: prevent text selection
+      this.isResizing = true;
+      this.startX = e.clientX;
+      this.startWidth = Store.state.width;
+
+      const sidebar = this.shadow.getElementById('sidebar');
+      if (sidebar) sidebar.style.transition = 'none'; // disable transition for smooth drag
+
+      document.body.style.userSelect = 'none';
+      document.body.style.cursor = 'ew-resize';
+
+      window.addEventListener('mousemove', this.handleResize);
+      window.addEventListener('mouseup', this.stopResize);
+    });
+  }
+
+  handleResize(e) {
+    if (!this.isResizing) return;
+    const delta = this.startX - e.clientX; // Move left = positive delta = increase width
+    let newWidth = this.startWidth + delta;
+
+    // Constraints
+    if (newWidth < 250) newWidth = 250;
+    if (newWidth > 800) newWidth = 800;
+
+    const sidebar = this.shadow.getElementById('sidebar');
+    if (sidebar) sidebar.style.width = `${newWidth}px`;
+
+    // Only update layout if open
+    if (Store.state.isOpen) {
+      this.updatePageLayout(newWidth);
+    }
+  }
+
+  stopResize() {
+    this.isResizing = false;
+    document.body.style.userSelect = '';
+    document.body.style.cursor = '';
+
+    window.removeEventListener('mousemove', this.handleResize);
+    window.removeEventListener('mouseup', this.stopResize);
+
+    const sidebar = this.shadow.getElementById('sidebar');
+    if (sidebar) {
+      sidebar.style.transition = 'transform 0.2s ease, width 0.1s ease'; // restore
+      Store.state.width = parseInt(sidebar.style.width, 10);
+      Store.save();
+    }
+  }
 }
 
 export const SidebarInstance = new Sidebar();

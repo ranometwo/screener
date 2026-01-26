@@ -57,6 +57,8 @@
   - **TradingView Support:** Sidebar now works on `tradingview.com` with context-aware navigation.
   - **Ctrl+Click:** Open symbols in new tab.
   - **Robustness:** Highlight persistence across reloads (URL-sync) and focus retention (sessionStorage).
+  - **UI Update:** Resizable Dock on right side (no shadow, drag-to-resize).
+  - **TV Support:** Fixed content shift on TradingView using `transform: translateZ(0)` hack. Moved sidebar to `documentElement` to avoid layout issues.
 - **v3.1 Refactor:**
   - Broke monolithic `content.js` into modular ES6 classes/objects.
   - Implemented `loader.js` for dynamic ES module importing.
