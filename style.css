@@ -1,0 +1,22 @@
+body {
+    transition: margin-right 0.2s ease-in-out;
+}
+
+:root {
+    --et-bg: #ffffff;
+    --et-fg: #1a1a1a;
+    --et-border: #e0e0e0;
+    --et-accent: #2962ff;
+    --et-accent-hover: #1e4bd1;
+    --et-visited: #673ab7;
+    --et-row-hover: #f5f5f5;
+    --et-red: #ff5252;
+    --et-green: #4caf50;
+}
+
+body[data-et-theme="dark"] {
+    --et-bg: #1e1e1e;
+    --et-fg: #e0e0e0;
+    --et-border: #333333;
+    --et-row-hover: #2d2d2d;
+}
