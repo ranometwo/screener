@@ -1,4 +1,5 @@
 import { Store } from './store.js';
+import { Logger } from './logger.js';
 import { ICONS } from './constants.js';
 import { Utils } from './utils.js';
 import { SidebarInstance } from './sidebar.js';
@@ -104,10 +105,12 @@ export const Injector = {
 
         btn.onclick = async (e) => {
           e.preventDefault(); e.stopPropagation();
+          Logger.debug(`[Injector] TV Button clicked for ${rawTicker}`);
           Store.markVisited(rawTicker);
           btn.style.background = '#673ab7';
           btn.innerText = "...";
           const resolved = await Utils.resolveSymbol(rawTicker);
+          Logger.debug(`[Injector] Resolved ${rawTicker} to ${resolved.ticker} (${resolved.exchange})`);
           btn.innerText = rawTicker.substring(0, 4);
           window.open(`https://in.tradingview.com/chart/?symbol=${resolved.exchange}:${resolved.ticker}`, '_blank');
         };

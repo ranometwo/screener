@@ -244,10 +244,20 @@ export class Sidebar {
 
       row.querySelector('.color-marker').onclick = () => { Store.toggleColor(item.ticker); this.renderContent(); };
       row.querySelector('.ticker-box').onclick = async (e) => {
+        let ticker = item.ticker;
+        let exchange = item.exchange;
+
+        // Resolve BSE if numeric
+        if (exchange === 'BSE' && /^\d+$/.test(ticker)) {
+           const resolved = await Utils.resolveSymbol(ticker);
+           ticker = resolved.ticker;
+           // We keep exchange as BSE
+        }
+
         const isTv = window.location.hostname.includes('tradingview.com');
         const url = isTv
-          ? `https://in.tradingview.com/chart/?symbol=${item.exchange}:${item.ticker}`
-          : `https://www.screener.in/company/${item.ticker}/`;
+          ? `https://in.tradingview.com/chart/?symbol=${exchange}:${ticker}`
+          : `https://www.screener.in/company/${item.ticker}/`; // Use original ticker for screener for robustness? Or resolved? Screener handles slugs usually.
 
         // Arm before navigation to keep focus
         this.arm();
@@ -256,7 +266,7 @@ export class Sidebar {
             window.open(url, '_blank');
         } else if (isTv) {
             // TradingView soft navigation
-            const fullSymbol = `${item.exchange}:${item.ticker}`;
+            const fullSymbol = `${exchange}:${ticker}`;
             const success = await this.setTradingViewSymbol(fullSymbol);
             if (!success) {
                 window.location.href = url;
@@ -268,8 +278,13 @@ export class Sidebar {
             window.location.href = url;
         }
       };
-      row.querySelector(`#tv-${item.ticker}`).onclick = () => {
-        window.open(`https://in.tradingview.com/chart/?symbol=${item.exchange}:${item.ticker}`, '_blank');
+      row.querySelector(`#tv-${item.ticker}`).onclick = async () => {
+        let ticker = item.ticker;
+        if (item.exchange === 'BSE' && /^\d+$/.test(ticker)) {
+           const resolved = await Utils.resolveSymbol(ticker);
+           ticker = resolved.ticker;
+        }
+        window.open(`https://in.tradingview.com/chart/?symbol=${item.exchange}:${ticker}`, '_blank');
       };
       row.querySelector(`#del-${item.ticker}`).onclick = () => { Store.removeSymbol(item.ticker); this.renderContent(); };
 
@@ -429,13 +444,23 @@ export class Sidebar {
   }
 
   async navigateToSymbol() {
-    const symbol = Store.activeWatchlist.symbols[this.highlightedIndex];
-    if (!symbol) return;
+    const symbolItem = Store.activeWatchlist.symbols[this.highlightedIndex];
+    if (!symbolItem) return;
+
+    let ticker = symbolItem.ticker;
+    let exchange = symbolItem.exchange;
+
+    // Resolve BSE if numeric
+    if (exchange === 'BSE' && /^\d+$/.test(ticker)) {
+        const resolved = await Utils.resolveSymbol(ticker);
+        ticker = resolved.ticker;
+        // Keep exchange as BSE
+    }
 
     const isTv = window.location.hostname.includes('tradingview.com');
     if (isTv) {
       // TradingView: Try soft navigation first
-      const fullSymbol = `${symbol.exchange}:${symbol.ticker}`;
+      const fullSymbol = `${exchange}:${ticker}`;
       const success = await this.setTradingViewSymbol(fullSymbol);
 
       this.arm(); // Ensure we stay armed
@@ -450,7 +475,9 @@ export class Sidebar {
     } else {
       // Screener: Navigate in current tab
       this.arm(); // Ensure we stay armed after reload
-      window.location.href = `https://www.screener.in/company/${symbol.ticker}/`;
+      // For screener, we can usually use the numeric ticker or the original one
+      // But let's use the item's original ticker for consistency with how Screener works
+      window.location.href = `https://www.screener.in/company/${symbolItem.ticker}/`;
     }
   }
 

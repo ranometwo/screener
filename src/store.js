@@ -19,7 +19,19 @@ export const Store = {
 
   async init() {
     try {
-      const data = await chrome.storage.sync.get([STORAGE_KEYS.DATA]);
+      // 1. Try LOCAL storage first (Preferred)
+      let data = await chrome.storage.local.get([STORAGE_KEYS.DATA]);
+      
+      // 2. Migration: If not in local, check SYNC (Legacy)
+      if (!data[STORAGE_KEYS.DATA]) {
+        Logger.info("No local data found, checking sync storage for migration...");
+        const syncData = await chrome.storage.sync.get([STORAGE_KEYS.DATA]);
+        if (syncData[STORAGE_KEYS.DATA]) {
+          Logger.info("Migrating data from sync to local...");
+          data = syncData;
+        }
+      }
+
       if (data[STORAGE_KEYS.DATA]) {
         this.state = { ...this.state, ...data[STORAGE_KEYS.DATA] };
         
@@ -36,6 +48,10 @@ export const Store = {
       // Initialize Logger
       Logger.setLevel(this.state.settings.logLevel);
       
+      // Save immediately to ensure local has the data (completes migration)
+      this.save();
+      
+      Logger.info(`[Store] Init complete. Loaded ${this.state.watchlists.length} watchlists.`);
       return this.state;
     } catch (e) {
       console.error("Failed to init store:", e); // Fallback: Console because Logger might fail if init fails fundamental things
@@ -44,7 +60,15 @@ export const Store = {
   },
 
   save() {
-    chrome.storage.sync.set({ [STORAGE_KEYS.DATA]: this.state });
+    Logger.debug("[Store] Saving state to LOCAL storage...");
+    chrome.storage.local.set({ [STORAGE_KEYS.DATA]: this.state }, () => {
+      if (chrome.runtime.lastError) {
+        Logger.error(`[Store] Save failed: ${chrome.runtime.lastError.message}`);
+        console.error("Storage Error:", chrome.runtime.lastError);
+      } else {
+        Logger.debug("[Store] State saved successfully.");
+      }
+    });
     this.applyTheme();
     // Update logger level on save
     Logger.setLevel(this.state.settings.logLevel);

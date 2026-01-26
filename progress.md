@@ -51,6 +51,13 @@
 - **BSE Resolver:** Resolves numeric BSE codes to symbols via background fetch if needed.
 
 ## Recent Changes
+- **v3.6 (BSE & Logging):**
+  - **CORS Fix:** Moved network requests to background service worker to fix CORS errors on TradingView.
+  - **BSE Sidebar Fix:** Sidebar now resolves numeric BSE codes (e.g. `500012`) to symbols (e.g. `ANDHRAPET`) on-click for valid TradingView links.
+  - **BSE Keyboard Nav:** Arrow keys now correctly resolve and navigate to BSE symbols on TradingView.
+  - **Logging:** Promoted resolution logs to `INFO` level for better debugging visibility.
+- **v3.5 (BSE Fix):**
+  - **BSE Link Resolution:** Restored robust BSE symbol resolution by parsing `bseindia.com` links from the company page.
 - **v3.2 (Keyboard & TV Support):**
   - **Keyboard Navigation:** Arrow Up/Down to navigate watchlist with visual highlight.
   - **Cross-Site Shortcuts:** 'T' (open TV) and 'S' (open Screener) shortcuts.
@@ -73,5 +80,8 @@
   - Fixed real-time column toggling bugs.
   - Fixed `Store.applyTheme` bug.
 
+  - **Storage Fix:** Switched to `chrome.storage.local` to bypass 8KB limit, enabling unlimited watchlists with auto-migration from sync.
+
 ## Known Issues / Technical Debt
 - **BSE Caching:** Resolver cache is in-memory only (resets on reload).
+
