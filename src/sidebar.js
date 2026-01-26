@@ -151,6 +151,7 @@ export class Sidebar {
                 ${Store.state.watchlists.map(w => `<option value="${w.id}" ${w.id === Store.state.activeWatchlistId ? 'selected' : ''}>${w.name}</option>`).join('')}
             </select>
             <button class="icon-btn" id="btn-new-wl" title="New List">${ICONS.plus}</button>
+            <button class="icon-btn" id="btn-export-wl" title="Export Watchlist">${ICONS.download}</button>
             <button class="icon-btn" id="btn-del-wl" title="Delete List">${ICONS.trash}</button>
         `;
     wlSelect.querySelector('#wl-dropdown').onchange = (e) => {
@@ -164,6 +165,15 @@ export class Sidebar {
     };
     wlSelect.querySelector('#btn-del-wl').onclick = () => {
       if (confirm("Delete this watchlist?")) { Store.deleteWatchlist(Store.state.activeWatchlistId); this.renderContent(); }
+    };
+    wlSelect.querySelector('#btn-export-wl').onclick = () => {
+      const wl = Store.activeWatchlist;
+      const symbols = wl.symbols.map(s => `${s.exchange}:${s.ticker}`).join(', ');
+      const blob = new Blob([symbols], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = `${wl.name.replace(/\s+/g, '_')}_export.txt`;
+      a.click();
     };
     area.appendChild(wlSelect);
 
@@ -288,9 +298,11 @@ export class Sidebar {
             </div>
             <hr style="border:0; border-top:1px solid var(--et-border, #e0e0e0);">
             <h4>Data Management</h4>
-            <button class="btn-primary" id="btn-export">Export CSV</button>
+            <div style="display:flex; gap:5px; margin-bottom:10px;">
+                <button class="btn-primary" id="btn-export-all" style="flex:1" title="Backup all data as CSV">Backup All</button>
+            </div>
             <div style="margin-top:15px">
-                <label>Import CSV (Ticker, Exchange)</label>
+                <label>Import (NSE:TCS, BSE:INFY - Comma or Newline)</label>
                 <textarea id="import-text" placeholder="RELIANCE, NSE\nTCS, NSE"></textarea>
                 <button class="btn-primary" style="margin-top:5px" id="btn-import">Import</button>
             </div>
@@ -301,7 +313,7 @@ export class Sidebar {
     div.querySelector('#chk-tv').onchange = (e) => { Store.state.settings.showColTv = e.target.checked; Store.save(); Injector.process(true); };
     div.querySelector('#sel-loglevel').onchange = (e) => { Store.state.settings.logLevel = e.target.value; Store.save(); };
 
-    div.querySelector('#btn-export').onclick = () => {
+    div.querySelector('#btn-export-all').onclick = () => {
       let csv = "Ticker,Exchange,Color,Watchlist\n";
       Store.state.watchlists.forEach(wl => {
         wl.symbols.forEach(s => { csv += `${s.ticker},${s.exchange},${s.color || 'none'},${wl.name}\n`; });

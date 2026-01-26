@@ -59,6 +59,9 @@
   - **Robustness:** Highlight persistence across reloads (URL-sync) and focus retention (sessionStorage).
   - **UI Update:** Resizable Dock on right side (no shadow, drag-to-resize).
   - **TV Support:** Fixed content shift on TradingView using `transform: translateZ(0)` hack. Moved sidebar to `documentElement` to avoid layout issues.
+- **v3.4 (Export/Import):**
+  - **Export Watchlist:** Single-line comma-separated format (`NSE:TCS, NSE:INFY`) for easy sharing/Copy-Paste.
+  - **Enhanced Import:** Supports comma-separated tokens in addition to newlines.
 - **v3.3 (Soft Navigation):**
   - **Soft Navigation on TradingView:** Uses `tv-inject.js` (Page Context Injection) to access internal `TradingViewApi`.
   - **Architecture:** Sidebar dispatches `CustomEvent` -> Injected Script calls `changeSymbol` -> Chart updates instantly.

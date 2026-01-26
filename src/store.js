@@ -105,10 +105,12 @@ export const Store = {
 
   // --- IMPORT/EXPORT ---
   importCSV(csvText) {
-    const rows = csvText.split('\n');
+    // Support comma-separated or newline-separated values
+    // e.g. "NSE:TCS, NSE:INFY" or "NSE:TCS\nNSE:INFY"
+    const tokens = csvText.split(/[\n,]+/).map(t => t.trim()).filter(t => t);
     let count = 0;
-    rows.forEach(row => {
-      const [p1, p2] = row.split(/[,:]/).map(s => s.trim().toUpperCase());
+    tokens.forEach(token => {
+      const [p1, p2] = token.split(':').map(s => s.trim().toUpperCase());
       if (p1 && p2) {
         // Determine which is exchange/ticker
         const ex = (p1 === 'NSE' || p1 === 'BSE') ? p1 : (p2 === 'NSE' || p2 === 'BSE') ? p2 : 'NSE';
