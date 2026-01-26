@@ -1,0 +1,162 @@
+## EvenTrade Keyboard + TradingView Support — Requirements (Final)
+
+### Scope
+
+Implement keyboard navigation and cross-site shortcuts for the **Watchlist Detail View** in the EvenTrade sidebar on:
+
+* `screener.in`
+* `tradingview.com`
+
+Shortcuts act on the **currently highlighted stock** in the sidebar.
+
+---
+
+## Definitions
+
+* **Highlighted stock**: the active selected row in the watchlist detail list (keyboard focus target).
+* **Screener context**: active tab URL matches `screener.in/*`.
+* **TradingView context**: active tab URL matches `tradingview.com/*`.
+* **Watchlist Detail View**: view where individual stocks for one watchlist are listed (not watchlists home, not settings).
+
+---
+
+## Functional Requirements
+
+### KR-1: Enable extension on TradingView
+
+* Extension content script must run on `tradingview.com` pages.
+* EvenTrade sidebar should be able to open and operate on TradingView the same way it does on Screener (docked panel remains unchanged).
+
+---
+
+### KR-2: Keyboard navigation (Up/Down)
+
+When sidebar is open and user is in Watchlist Detail View:
+
+* `ArrowDown` → move highlight to next visible stock
+* `ArrowUp` → move highlight to previous visible stock
+* If no highlight exists, first Arrow key sets highlight to the **first visible stock** (or last visible if ArrowUp is pressed first).
+* Highlight movement:
+
+  * **No wrap** (stop at top/bottom)
+  * Must scroll the list to keep highlighted row visible
+
+---
+
+### KR-3: Navigation action on highlight change (site-dependent)
+
+#### On TradingView (same tab)
+
+* When highlight changes via ArrowUp/Down:
+
+  * Update the chart in the **same tab** to the highlighted symbol.
+
+#### On Screener (same tab)
+
+* When highlight changes via ArrowUp/Down:
+
+  * Navigate the **current tab** to the Screener chart/page for the highlighted symbol (no new tabs).
+
+---
+
+### KR-4: Open in new tab via Ctrl + click (Screener + TradingView)
+
+* If user **Ctrl+clicks** a stock row in watchlist detail:
+
+  * Open the corresponding chart/page in a **new tab**
+  * The current tab should remain unchanged
+* Non-ctrl click should keep current behavior (select/highlight only unless you already navigate on click—if you do, then non-ctrl click navigates in same tab).
+
+**Target URLs**
+
+* On Screener: open stock’s Screener chart/page URL
+* On TradingView: open TradingView chart URL
+
+---
+
+### KR-5: Cross-site shortcuts (single-key)
+
+Applies only when sidebar is open and a stock is highlighted:
+
+#### On Screener
+
+* Press `T` → open TradingView chart for highlighted stock in a **new tab**
+
+#### On TradingView
+
+* Press `S` → open Screener chart/page for highlighted stock in a **new tab**
+
+---
+
+## Activation & Safety Rules
+
+### KR-6: When keyboard shortcuts are active
+
+Keyboard handling must be enabled only when ALL are true:
+
+1. Sidebar is open
+2. Watchlist Detail View is visible
+3. User is **not typing** in any:
+
+   * `input`, `textarea`, `select`
+   * any `[contenteditable="true"]`
+4. Sidebar is “armed” (to avoid hijacking host-site shortcuts):
+
+   * Keyboard shortcuts activate only after the user clicks inside the sidebar, and stay active until focus leaves sidebar / tab changes.
+
+---
+
+## UX/State Requirements
+
+### KR-7: Maintain selection state
+
+* Highlight state must be maintained as the user navigates.
+* If filters are applied:
+
+  * Arrow navigation moves only within **filtered visible items**
+  * If current highlighted stock becomes hidden due to filtering, highlight moves to the first visible row.
+
+### KR-8: Visual states must not conflict
+
+* Keep **Highlighted stock** (keyboard selection) distinct from:
+
+  * Bookmark color (red/yellow/green)
+  * “Last opened” highlight (matte blue/grey for last SC/TV action)
+* If both apply, highlight should remain clearly readable (e.g., selection outline + last-open background).
+
+---
+
+## Performance Requirements
+
+### KR-9: Debounce rapid navigation
+
+* Holding ArrowUp/Down should not trigger excessive navigation updates.
+* Implement a debounce/throttle so:
+
+  * Navigation feels responsive
+  * Final highlighted symbol reliably loads
+* Recommended: 100–200ms debounce for the “navigate/open chart” action (selection still moves immediately).
+
+---
+
+## Non-goals / Out of Scope
+
+* No requirement to display price/LTP/change.
+* No requirement to add more shortcuts beyond ArrowUp/Down, `T`, `S`.
+* No requirement to persist highlight across sessions.
+
+---
+
+## Acceptance Criteria (QA-ready)
+
+1. On Screener, with sidebar open and watchlist detail visible:
+
+   * ArrowUp/Down moves highlight and navigates current tab to the correct symbol page.
+2. On TradingView, with sidebar open and watchlist detail visible:
+
+   * ArrowUp/Down moves highlight and updates chart in same tab to correct symbol.
+3. Ctrl+click on a stock row opens the appropriate chart/page in a new tab (current tab unchanged).
+4. On Screener, pressing `T` opens TradingView chart for highlighted stock in a new tab.
+5. On TradingView, pressing `S` opens Screener chart/page for highlighted stock in a new tab.
+6. Shortcuts do not trigger when typing in inputs or when sidebar has not been focused/armed.
+7. Shortcuts do not break core TradingView keyboard interactions when sidebar is not armed.
