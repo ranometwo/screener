@@ -1,0 +1,36 @@
+/**
+ * General Utilities
+ */
+export const Utils = {
+  extractTickerFromUrl(url) {
+    const match = url.match(/\/company\/([^/]+)\//);
+    return match ? match[1].toUpperCase() : null;
+  },
+
+  // Cache for BSE resolution
+  bseCache: new Map(),
+
+  /**
+   * Resolves a symbol. If it's all digits, assumes it's a BSE code and tries to fetch the ticker.
+   */
+  async resolveSymbol(rawTicker) {
+    if (!/^\d+$/.test(rawTicker)) return { ticker: rawTicker, exchange: 'NSE' };
+    if (this.bseCache.has(rawTicker)) return { ticker: this.bseCache.get(rawTicker), exchange: 'BSE' };
+    
+    try {
+      const res = await fetch(`https://www.screener.in/company/${rawTicker}/`);
+      const html = await res.text();
+      // Screener usually redirects or has a canonical link. 
+      // We can also look for specific patterns in the HTML.
+      // The original regex was: /company\/([A-Z0-9]+)\/consolidated/
+      const match = html.match(/company\/([A-Z0-9]+)\/consolidated/) || html.match(/company\/([A-Z0-9]+)\//);
+      
+      const resolved = match ? match[1] : rawTicker;
+      this.bseCache.set(rawTicker, resolved);
+      return { ticker: resolved, exchange: 'BSE' };
+    } catch (e) {
+      console.error("Error resolving symbol:", e);
+      return { ticker: rawTicker, exchange: 'BSE' };
+    }
+  }
+};
