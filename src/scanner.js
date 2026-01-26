@@ -1,5 +1,6 @@
 import { Utils } from './utils.js';
 import { Store } from './store.js';
+import { Logger } from './logger.js';
 
 export const Scanner = {
   isScanning: false,
@@ -51,7 +52,7 @@ export const Scanner = {
         await new Promise(r => setTimeout(r, 500)); // Rate limit
       }
     } catch (e) {
-      console.error("Scanning failed:", e);
+      Logger.error("Scanning failed:", e);
     }
 
     this.isScanning = false;

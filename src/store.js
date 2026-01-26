@@ -1,5 +1,7 @@
 import { STORAGE_KEYS } from './constants.js';
 
+import { Logger } from './logger.js';
+
 export const Store = {
   state: {
     isOpen: false,
@@ -10,7 +12,8 @@ export const Store = {
     settings: {
       theme: 'light',
       showColWatchlist: true,
-      showColTv: true
+      showColTv: true,
+      logLevel: 'INFO'
     }
   },
 
@@ -19,6 +22,9 @@ export const Store = {
       const data = await chrome.storage.sync.get([STORAGE_KEYS.DATA]);
       if (data[STORAGE_KEYS.DATA]) {
         this.state = { ...this.state, ...data[STORAGE_KEYS.DATA] };
+        
+        // Ensure default structure if missing (migration)
+        if (!this.state.settings.logLevel) this.state.settings.logLevel = 'INFO';
 
         // Migration check: if coming from v2.3 (single array), migrate to multi-list
         if (Array.isArray(this.state.watchlist)) {
@@ -26,9 +32,13 @@ export const Store = {
           delete this.state.watchlist;
         }
       }
+      
+      // Initialize Logger
+      Logger.setLevel(this.state.settings.logLevel);
+      
       return this.state;
     } catch (e) {
-      console.error("Failed to init store:", e);
+      console.error("Failed to init store:", e); // Fallback: Console because Logger might fail if init fails fundamental things
       return this.state;
     }
   },
@@ -36,6 +46,8 @@ export const Store = {
   save() {
     chrome.storage.sync.set({ [STORAGE_KEYS.DATA]: this.state });
     this.applyTheme();
+    // Update logger level on save
+    Logger.setLevel(this.state.settings.logLevel);
   },
 
   applyTheme() {

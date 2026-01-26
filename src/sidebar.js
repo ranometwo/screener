@@ -1,4 +1,5 @@
 import { Store } from './store.js';
+import { Logger } from './logger.js';
 import { ICONS } from './constants.js';
 import { Utils } from './utils.js';
 import { Scanner } from './scanner.js';
@@ -275,6 +276,15 @@ export class Sidebar {
                 <label><input type="checkbox" id="chk-theme" ${Store.state.settings.theme === 'dark' ? 'checked' : ''}> Dark Mode</label><br>
                 <label><input type="checkbox" id="chk-wl" ${Store.state.settings.showColWatchlist ? 'checked' : ''}> Show 'WList' (Add to Watchlist) Column</label><br>
                 <label><input type="checkbox" id="chk-tv" ${Store.state.settings.showColTv ? 'checked' : ''}> Show 'TrVw' (TradingView) Column</label>
+                <div style="margin-top:10px; display:flex; align-items:center; gap:10px;">
+                   <label for="sel-loglevel">Log Level:</label>
+                   <select id="sel-loglevel" style="flex:1">
+                     <option value="ERROR" ${Store.state.settings.logLevel === 'ERROR' ? 'selected' : ''}>Error</option>
+                     <option value="WARN" ${Store.state.settings.logLevel === 'WARN' ? 'selected' : ''}>Warn</option>
+                     <option value="INFO" ${Store.state.settings.logLevel === 'INFO' ? 'selected' : ''}>Info</option>
+                     <option value="DEBUG" ${Store.state.settings.logLevel === 'DEBUG' ? 'selected' : ''}>Debug</option>
+                   </select>
+                </div>
             </div>
             <hr style="border:0; border-top:1px solid var(--et-border, #e0e0e0);">
             <h4>Data Management</h4>
@@ -289,6 +299,7 @@ export class Sidebar {
     div.querySelector('#chk-theme').onchange = (e) => { Store.state.settings.theme = e.target.checked ? 'dark' : 'light'; Store.save(); Store.applyTheme(); };
     div.querySelector('#chk-wl').onchange = (e) => { Store.state.settings.showColWatchlist = e.target.checked; Store.save(); Injector.process(true); };
     div.querySelector('#chk-tv').onchange = (e) => { Store.state.settings.showColTv = e.target.checked; Store.save(); Injector.process(true); };
+    div.querySelector('#sel-loglevel').onchange = (e) => { Store.state.settings.logLevel = e.target.value; Store.save(); };
 
     div.querySelector('#btn-export').onclick = () => {
       let csv = "Ticker,Exchange,Color,Watchlist\n";
@@ -419,10 +430,10 @@ export class Sidebar {
 
       if (!success) {
         // Fallback to reload if UI automation fails
-        console.warn("[EvenTrade] Soft nav failed, falling back to reload");
+        Logger.warn("[EvenTrade] Soft nav failed, falling back to reload");
         window.location.href = `https://in.tradingview.com/chart/?symbol=${fullSymbol}`;
       } else {
-        console.debug("Soft nav dispatched");
+        Logger.debug("Soft nav dispatched");
       }
     } else {
       // Screener: Navigate in current tab
@@ -435,6 +446,7 @@ export class Sidebar {
     // Soft Navigation via Injection Bridge
     // We cannot access TradingViewApi directly from the content script (Sidebar).
     // Instead, we dispatch a custom event that the injected script (tv-inject.js) listens to.
+    Logger.debug(`Attempting soft nav via Injection to: ${symbol}`);
     
     let exchange = 'NSE';
     let ticker = symbol;

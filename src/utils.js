@@ -1,6 +1,8 @@
 /**
  * General Utilities
  */
+import { Logger } from './logger.js';
+
 export const Utils = {
   extractTickerFromUrl(url) {
     const match = url.match(/\/company\/([^/]+)\//);
@@ -29,7 +31,7 @@ export const Utils = {
       this.bseCache.set(rawTicker, resolved);
       return { ticker: resolved, exchange: 'BSE' };
     } catch (e) {
-      console.error("Error resolving symbol:", e);
+      Logger.error("Error resolving symbol:", e);
       return { ticker: rawTicker, exchange: 'BSE' };
     }
   },

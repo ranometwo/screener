@@ -6,9 +6,10 @@
 import { Store } from './store.js';
 import { SidebarInstance } from './sidebar.js';
 import { Injector } from './injector.js';
+import { Logger } from './logger.js';
 
 (async function main() {
-  console.log('EvenTrade: Initializing...');
+  Logger.info('EvenTrade: Initializing...');
   
   // Initialize Store first
   await Store.init();
@@ -24,8 +25,8 @@ import { Injector } from './injector.js';
     const script = document.createElement('script');
     script.src = chrome.runtime.getURL('src/tv-inject.js');
     (document.head || document.documentElement).appendChild(script);
-    console.log('EvenTrade: TV Bridge Injected');
+    Logger.info('EvenTrade: TV Bridge Injected');
   }
 
-  console.log('EvenTrade: Ready');
+  Logger.info('EvenTrade: Ready');
 })();
