@@ -19,5 +19,13 @@ import { Injector } from './injector.js';
   // Initialize DOM Injector
   Injector.init();
   
+  // Inject TradingView Bridge
+  if (window.location.hostname.includes('tradingview.com')) {
+    const script = document.createElement('script');
+    script.src = chrome.runtime.getURL('src/tv-inject.js');
+    (document.head || document.documentElement).appendChild(script);
+    console.log('EvenTrade: TV Bridge Injected');
+  }
+
   console.log('EvenTrade: Ready');
 })();

@@ -232,7 +232,7 @@ export class Sidebar {
             `;
 
       row.querySelector('.color-marker').onclick = () => { Store.toggleColor(item.ticker); this.renderContent(); };
-      row.querySelector('.ticker-box').onclick = (e) => {
+      row.querySelector('.ticker-box').onclick = async (e) => {
         const isTv = window.location.hostname.includes('tradingview.com');
         const url = isTv
           ? `https://in.tradingview.com/chart/?symbol=${item.exchange}:${item.ticker}`
@@ -241,8 +241,21 @@ export class Sidebar {
         // Arm before navigation to keep focus
         this.arm();
 
-        if (e.ctrlKey || e.metaKey) window.open(url, '_blank');
-        else window.location.href = url;
+        if (e.ctrlKey || e.metaKey) {
+            window.open(url, '_blank');
+        } else if (isTv) {
+            // TradingView soft navigation
+            const fullSymbol = `${item.exchange}:${item.ticker}`;
+            const success = await this.setTradingViewSymbol(fullSymbol);
+            if (!success) {
+                window.location.href = url;
+            } else {
+                this.highlightedIndex = index;
+                this.updateHighlightVisuals();
+            }
+        } else {
+            window.location.href = url;
+        }
       };
       row.querySelector(`#tv-${item.ticker}`).onclick = () => {
         window.open(`https://in.tradingview.com/chart/?symbol=${item.exchange}:${item.ticker}`, '_blank');
@@ -392,22 +405,70 @@ export class Sidebar {
     });
   }
 
-  navigateToSymbol() {
+  async navigateToSymbol() {
     const symbol = Store.activeWatchlist.symbols[this.highlightedIndex];
     if (!symbol) return;
 
     const isTv = window.location.hostname.includes('tradingview.com');
     if (isTv) {
-      // TradingView: Update chart in same tab
-      // NOTE: TradingView generally reloads page on URL change unless we hook internal router.
-      // We will stick to reload for stability as per plan.
-      this.arm(); // Ensure we stay armed after reload
-      window.location.href = `https://in.tradingview.com/chart/?symbol=${symbol.exchange}:${symbol.ticker}`;
+      // TradingView: Try soft navigation first
+      const fullSymbol = `${symbol.exchange}:${symbol.ticker}`;
+      const success = await this.setTradingViewSymbol(fullSymbol);
+
+      this.arm(); // Ensure we stay armed
+
+      if (!success) {
+        // Fallback to reload if UI automation fails
+        console.warn("[EvenTrade] Soft nav failed, falling back to reload");
+        window.location.href = `https://in.tradingview.com/chart/?symbol=${fullSymbol}`;
+      } else {
+        console.debug("Soft nav dispatched");
+      }
     } else {
       // Screener: Navigate in current tab
       this.arm(); // Ensure we stay armed after reload
       window.location.href = `https://www.screener.in/company/${symbol.ticker}/`;
     }
+  }
+
+  async setTradingViewSymbol(symbol) {
+    // Soft Navigation via Injection Bridge
+    // We cannot access TradingViewApi directly from the content script (Sidebar).
+    // Instead, we dispatch a custom event that the injected script (tv-inject.js) listens to.
+    
+    let exchange = 'NSE';
+    let ticker = symbol;
+    
+    if (symbol.includes(':')) {
+        [exchange, ticker] = symbol.split(':');
+    }
+
+    document.dispatchEvent(new CustomEvent("change_tradingview_symbol", {
+        detail: {
+            symbol: ticker,
+            exchange: exchange
+        }
+    }));
+    
+    return true; 
+  }
+
+  waitForEl(selector, timeout) {
+    return new Promise(resolve => {
+      const el = document.querySelector(selector);
+      if (el) return resolve(el);
+
+      const observer = new MutationObserver(() => {
+        const el = document.querySelector(selector);
+        if (el) {
+          observer.disconnect();
+          resolve(el);
+        }
+      });
+
+      observer.observe(document.body, { childList: true, subtree: true });
+      setTimeout(() => { observer.disconnect(); resolve(null); }, timeout);
+    });
   }
 
   openCrossSite(toTv) {
