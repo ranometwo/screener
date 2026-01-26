@@ -10,6 +10,9 @@ export class Sidebar {
     this.host.id = 'et-sidebar-host';
     this.shadow = this.host.attachShadow({ mode: 'open' });
     this.currentView = 'list';
+    this.highlightedIndex = -1;
+    this.isArmed = false;
+    this.debouncedNavigate = Utils.debounce(this.navigateToSymbol.bind(this), 200);
   }
 
   async init() {
@@ -24,6 +27,17 @@ export class Sidebar {
     chrome.runtime.onMessage.addListener((msg) => { 
       if (msg.action === 'toggle_sidebar') this.toggle(); 
     });
+
+    this.setupKeyboardHandlers();
+
+    // Auto-arm if previously armed (for persistent navigation)
+    if (sessionStorage.getItem('et-sidebar-armed') === 'true') {
+      this.arm();
+    }
+
+    // Sync highlight from URL initially and on history changes
+    this.syncHighlightFromUrl();
+    window.addEventListener('popstate', () => this.syncHighlightFromUrl());
   }
 
   renderStyles() {
@@ -65,6 +79,12 @@ export class Sidebar {
             .btn-primary { background: var(--et-accent, #2196f3); color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
             .status-msg { font-size: 11px; color: var(--et-green, #4caf50); margin-top: 5px; text-align: center; }
             textarea { width: 100%; height: 80px; margin-top: 5px; border: 1px solid var(--et-border, #e0e0e0); background: var(--et-bg, #ffffff); color: var(--et-fg, #333333); }
+            
+            /* Highlight (Keyboard Nav) */
+            .wl-item.highlighted {
+                background: var(--et-highlight-bg, rgba(33, 150, 243, 0.1));
+                border-left: 3px solid var(--et-accent, #2196f3);
+            }
         `;
     this.shadow.appendChild(style);
   }
@@ -104,6 +124,12 @@ export class Sidebar {
   renderWatchlist(area) {
     const wlSelect = document.createElement('div');
     wlSelect.className = 'wl-select-area';
+
+    // Sync highlight with URL if not set (or always to be safe? prefer current state if valid)
+    if (this.highlightedIndex === -1) {
+      this.syncHighlightFromUrl();
+    }
+
     wlSelect.innerHTML = `
             <select id="wl-dropdown">
                 ${Store.state.watchlists.map(w => `<option value="${w.id}" ${w.id === Store.state.activeWatchlistId ? 'selected' : ''}>${w.name}</option>`).join('')}
@@ -169,10 +195,17 @@ export class Sidebar {
 
     area.appendChild(actions);
 
+    // List Container
+    const listContainer = document.createElement('div');
+    listContainer.id = 'wl-list-container';
+    area.appendChild(listContainer);
+
     // List Items
-    Store.activeWatchlist.symbols.forEach(item => {
+    Store.activeWatchlist.symbols.forEach((item, index) => {
       const row = document.createElement('div');
       row.className = 'wl-item';
+      if (index === this.highlightedIndex) row.classList.add('highlighted');
+      row.dataset.index = index; // Keep index for ref
       row.innerHTML = `
                 <div class="color-marker ${item.color || 'none'}"></div>
                 <div class="ticker-box">
@@ -184,13 +217,24 @@ export class Sidebar {
             `;
 
       row.querySelector('.color-marker').onclick = () => { Store.toggleColor(item.ticker); this.renderContent(); };
-      row.querySelector('.ticker-box').onclick = () => window.location.href = `https://www.screener.in/company/${item.ticker}/`;
+      row.querySelector('.ticker-box').onclick = (e) => {
+        const isTv = window.location.hostname.includes('tradingview.com');
+        const url = isTv
+          ? `https://in.tradingview.com/chart/?symbol=${item.exchange}:${item.ticker}`
+          : `https://www.screener.in/company/${item.ticker}/`;
+
+        // Arm before navigation to keep focus
+        this.arm();
+
+        if (e.ctrlKey || e.metaKey) window.open(url, '_blank');
+        else window.location.href = url;
+      };
       row.querySelector(`#tv-${item.ticker}`).onclick = () => {
         window.open(`https://in.tradingview.com/chart/?symbol=${item.exchange}:${item.ticker}`, '_blank');
       };
       row.querySelector(`#del-${item.ticker}`).onclick = () => { Store.removeSymbol(item.ticker); this.renderContent(); };
 
-      area.appendChild(row);
+      listContainer.appendChild(row);
     });
   }
 
@@ -241,6 +285,162 @@ export class Sidebar {
     };
 
     area.appendChild(div);
+  }
+
+  setupKeyboardHandlers() {
+    // Global keydown for sidebar shortcuts
+    document.addEventListener('keydown', this.handleKeydown.bind(this));
+
+    // Arming logic
+    this.host.addEventListener('mousedown', () => this.arm());
+    this.host.addEventListener('focusin', () => this.arm());
+
+    // Disarm logic (clicking outside)
+    document.addEventListener('mousedown', (e) => {
+      if (!this.host.contains(e.target)) {
+        this.disarm();
+      }
+    });
+  }
+
+  arm() {
+    this.isArmed = true;
+    sessionStorage.setItem('et-sidebar-armed', 'true');
+    // visual feedback if needed
+  }
+
+  disarm() {
+    this.isArmed = false;
+    sessionStorage.removeItem('et-sidebar-armed');
+    // remove visual feedback if needed
+  }
+
+  handleKeydown(e) {
+    if (!Store.state.isOpen || !this.isArmed || this.currentView !== 'list') return;
+
+    // Safety check: not typing in inputs
+    const tag = document.activeElement.tagName.toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select' || document.activeElement.isContentEditable) return;
+
+    // Navigation
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      this.moveHighlight(-1);
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      this.moveHighlight(1);
+    }
+    // Cross-site shortcuts
+    else if (e.key.toUpperCase() === 'T' && window.location.hostname.includes('screener.in')) {
+      e.preventDefault();
+      this.openCrossSite(true); // Open TV
+    } else if (e.key.toUpperCase() === 'S' && window.location.hostname.includes('tradingview.com')) {
+      e.preventDefault();
+      this.openCrossSite(false); // Open Screener
+    }
+  }
+
+  moveHighlight(delta) {
+    const symbols = Store.activeWatchlist.symbols;
+    if (!symbols.length) return;
+
+    let newIndex = this.highlightedIndex + delta;
+
+    // Boundary checks with no wrap
+    if (newIndex < 0) newIndex = 0; // Stop at top
+    else if (newIndex >= symbols.length) newIndex = symbols.length - 1; // Stop at bottom
+
+    // Special case: if starting from -1
+    if (this.highlightedIndex === -1) {
+      newIndex = delta > 0 ? 0 : symbols.length - 1;
+    }
+
+    if (newIndex !== this.highlightedIndex) {
+      this.highlightedIndex = newIndex;
+      this.updateHighlightVisuals();
+      this.debouncedNavigate();
+    }
+  }
+
+  updateHighlightVisuals() {
+    const container = this.shadow.getElementById('wl-list-container');
+    if (!container) return;
+
+    const rows = container.querySelectorAll('.wl-item');
+    rows.forEach((row, idx) => {
+      if (idx === this.highlightedIndex) {
+        row.classList.add('highlighted');
+        row.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      } else {
+        row.classList.remove('highlighted');
+      }
+    });
+  }
+
+  navigateToSymbol() {
+    const symbol = Store.activeWatchlist.symbols[this.highlightedIndex];
+    if (!symbol) return;
+
+    const isTv = window.location.hostname.includes('tradingview.com');
+    if (isTv) {
+      // TradingView: Update chart in same tab
+      // NOTE: TradingView generally reloads page on URL change unless we hook internal router.
+      // We will stick to reload for stability as per plan.
+      this.arm(); // Ensure we stay armed after reload
+      window.location.href = `https://in.tradingview.com/chart/?symbol=${symbol.exchange}:${symbol.ticker}`;
+    } else {
+      // Screener: Navigate in current tab
+      this.arm(); // Ensure we stay armed after reload
+      window.location.href = `https://www.screener.in/company/${symbol.ticker}/`;
+    }
+  }
+
+  openCrossSite(toTv) {
+    const symbol = Store.activeWatchlist.symbols[this.highlightedIndex];
+    if (!symbol) return;
+
+    let url;
+    if (toTv) {
+      url = `https://in.tradingview.com/chart/?symbol=${symbol.exchange}:${symbol.ticker}`;
+    } else {
+      url = `https://www.screener.in/company/${symbol.ticker}/`;
+    }
+    window.open(url, '_blank');
+  }
+
+
+
+  syncHighlightFromUrl() {
+    const isTv = window.location.hostname.includes('tradingview.com');
+    let ticker = null;
+    let exchange = null;
+
+    if (isTv) {
+      // url param: symbol=NSE:TATA or present in title? 
+      // safer to check URL params
+      const params = new URLSearchParams(window.location.search);
+      const symParam = params.get('symbol'); // e.g. NSE:TATA
+      if (symParam) {
+        const parts = symParam.split(':');
+        if (parts.length === 2) {
+          exchange = parts[0];
+          ticker = parts[1];
+        } else {
+          ticker = symParam;
+        }
+      }
+    } else {
+      // Screener: /company/TATA/
+      ticker = Utils.extractTickerFromUrl(window.location.href);
+    }
+
+    if (ticker) {
+      const idx = Store.activeWatchlist.symbols.findIndex(s => s.ticker === ticker);
+      if (idx !== -1) {
+        this.highlightedIndex = idx;
+        this.updateHighlightVisuals();
+      }
+    }
   }
 
   toggle() { Store.state.isOpen = !Store.state.isOpen; Store.save(); Store.state.isOpen ? this.open() : this.close(); }

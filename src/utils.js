@@ -32,5 +32,19 @@ export const Utils = {
       console.error("Error resolving symbol:", e);
       return { ticker: rawTicker, exchange: 'BSE' };
     }
+  },
+
+  /**
+   * Returns a function, that, as long as it continues to be invoked, will not
+   * be triggered. The function will be called after it stops being called for
+   * N milliseconds.
+   */
+  debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+      const context = this;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(context, args), wait);
+    };
   }
 };

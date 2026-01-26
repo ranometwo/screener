@@ -4,7 +4,7 @@
 
 ## Overview
 **Project:** EvenTrade - Screener.in Assistant
-**Version:** 3.1 (Refactored & Modularized)
+**Version:** 3.2 (Keyboard & TV Support)
 **Type:** Chrome Extension
 **Core Functionality:** Enhances Screener.in with a sidebar for watchlists, TradingView chart integration, and bulk scanning capabilities.
 
@@ -51,6 +51,12 @@
 - **BSE Resolver:** Resolves numeric BSE codes to symbols via background fetch if needed.
 
 ## Recent Changes
+- **v3.2 (Keyboard & TV Support):**
+  - **Keyboard Navigation:** Arrow Up/Down to navigate watchlist with visual highlight.
+  - **Cross-Site Shortcuts:** 'T' (open TV) and 'S' (open Screener) shortcuts.
+  - **TradingView Support:** Sidebar now works on `tradingview.com` with context-aware navigation.
+  - **Ctrl+Click:** Open symbols in new tab.
+  - **Robustness:** Highlight persistence across reloads (URL-sync) and focus retention (sessionStorage).
 - **v3.1 Refactor:**
   - Broke monolithic `content.js` into modular ES6 classes/objects.
   - Implemented `loader.js` for dynamic ES module importing.
