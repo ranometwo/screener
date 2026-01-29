@@ -231,6 +231,13 @@ export class Sidebar {
       const val = actions.querySelector('#add-input').value.toUpperCase().trim();
       if (val) { Store.addSymbol(val, 'NSE'); actions.querySelector('#add-input').value = ''; this.renderContent(); }
     };
+    const inputEl = actions.querySelector('#add-input');
+    inputEl.onkeydown = (e) => { 
+        if(e.key === 'Enter') addFn(); 
+        e.stopPropagation(); 
+    };
+    inputEl.onkeyup = (e) => e.stopPropagation();
+    inputEl.onkeypress = (e) => e.stopPropagation();
     actions.querySelector('#btn-add').onclick = addFn;
 
     const handleScan = async (all) => {
@@ -419,8 +426,15 @@ export class Sidebar {
     if (!Store.state.isOpen || !this.isArmed || this.currentView !== 'list') return;
 
     // Safety check: not typing in inputs
-    const tag = document.activeElement.tagName.toLowerCase();
-    if (tag === 'input' || tag === 'textarea' || tag === 'select' || document.activeElement.isContentEditable) return;
+    // Check main document active element
+    let activeTag = document.activeElement.tagName.toLowerCase();
+    if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select' || document.activeElement.isContentEditable) return;
+
+    // Check shadow DOM active element (if focused element is the host)
+    if (this.host === document.activeElement && this.shadow.activeElement) {
+        activeTag = this.shadow.activeElement.tagName.toLowerCase();
+        if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select' || this.shadow.activeElement.isContentEditable) return;
+    }
 
     // Navigation
     if (e.key === 'ArrowUp') {
