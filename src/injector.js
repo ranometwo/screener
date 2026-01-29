@@ -27,6 +27,9 @@ export const Injector = {
   },
 
   process(force) {
+    // Only add buttons on Screen pages
+    if (!window.location.href.includes('/screens/')) return;
+
     document.querySelectorAll("table.data-table").forEach(table => {
       this.injectHeaders(table, force);
       this.injectRows(table);
