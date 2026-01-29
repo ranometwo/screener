@@ -279,8 +279,9 @@ export class Sidebar {
                     <div class="ticker">${item.ticker}</div>
                     <div class="exc">${item.exchange}</div>
                 </div>
-                <button class="icon-btn" id="tv-${item.ticker}">${ICONS.tv}</button>
-                <button class="icon-btn" id="del-${item.ticker}">${ICONS.trash}</button>
+                <button class="icon-btn" id="scr-${item.ticker}" title="Open in Screener">${ICONS.screener}</button>
+                <button class="icon-btn" id="tv-${item.ticker}" title="Open in TradingView">${ICONS.tv}</button>
+                <button class="icon-btn" id="del-${item.ticker}" title="Remove">${ICONS.trash}</button>
             `;
 
       row.querySelector('.color-marker').onclick = () => { Store.toggleColor(item.ticker); this.renderContent(); };
@@ -319,7 +320,12 @@ export class Sidebar {
             window.location.href = url;
         }
       };
-      row.querySelector(`#tv-${item.ticker}`).onclick = async () => {
+      row.querySelector(`#scr-${item.ticker}`).onclick = (e) => {
+        e.stopPropagation();
+        window.open(`https://www.screener.in/company/${item.ticker}/`, '_blank');
+      };
+      row.querySelector(`#tv-${item.ticker}`).onclick = async (e) => {
+        e.stopPropagation();
         let ticker = item.ticker;
         if (item.exchange === 'BSE' && /^\d+$/.test(ticker)) {
            const resolved = await Utils.resolveSymbol(ticker);

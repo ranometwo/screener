@@ -4,7 +4,7 @@
 
 ## Overview
 **Project:** EvenTrade - Screener.in Assistant
-**Version:** 3.2 (Keyboard & TV Support)
+**Version:** 3.7 (Watchlist Actions)
 **Type:** Chrome Extension
 **Core Functionality:** Enhances Screener.in with a sidebar for watchlists, TradingView chart integration, and bulk scanning capabilities.
 
@@ -51,6 +51,8 @@
 - **BSE Resolver:** Resolves numeric BSE codes to symbols via background fetch if needed.
 
 ## Recent Changes
+- **v3.7 (Watchlist Actions):**
+  - **Screener Icon:** Added 'S' icon to watchlist items to quickly open the stock's Screener.in page (especially useful when browsing on TradingView).
 - **v3.6 (BSE & Logging):**
   - **CORS Fix:** Moved network requests to background service worker to fix CORS errors on TradingView.
   - **BSE Sidebar Fix:** Sidebar now resolves numeric BSE codes (e.g. `500012`) to symbols (e.g. `ANDHRAPET`) on-click for valid TradingView links.
