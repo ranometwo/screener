@@ -56,6 +56,7 @@
   - **BSE Sidebar Fix:** Sidebar now resolves numeric BSE codes (e.g. `500012`) to symbols (e.g. `ANDHRAPET`) on-click for valid TradingView links.
   - **BSE Keyboard Nav:** Arrow keys now correctly resolve and navigate to BSE symbols on TradingView.
   - **Logging:** Promoted resolution logs to `INFO` level for better debugging visibility.
+  - **Settings UI:** Added Back button to Settings header (replaces title) for clearer navigation.
 - **v3.5 (BSE Fix):**
   - **BSE Link Resolution:** Restored robust BSE symbol resolution by parsing `bseindia.com` links from the company page.
 - **v3.2 (Keyboard & TV Support):**

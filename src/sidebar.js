@@ -113,24 +113,58 @@ export class Sidebar {
     }
     container.innerHTML = `
             <div id="resize-handle" title="Drag to resize"></div>
-            <header>
-                <h2>EvenTrade</h2>
-                <div style="display:flex; gap:5px;">
-                    <button id="btn-settings" class="icon-btn" title="Settings">${ICONS.settings}</button>
-                    <button id="btn-close" class="icon-btn" title="Close">${ICONS.close}</button>
-                </div>
-            </header>
+            <header id="sidebar-header"></header>
             <div class="content" id="main-content"></div>
         `;
-    this.shadow.getElementById('btn-close').onclick = () => this.toggle();
-    this.shadow.getElementById('btn-settings').onclick = () => {
-      this.currentView = this.currentView === 'settings' ? 'list' : 'settings';
-      this.renderContent();
-    };
     this.renderContent();
   }
 
+  updateHeader() {
+    const header = this.shadow.getElementById('sidebar-header');
+    if (!header) return;
+
+    if (this.currentView === 'settings') {
+      header.innerHTML = `
+          <div style="display:flex; align-items:center; flex:1;">
+              <button id="btn-back" class="icon-btn" style="display:flex; align-items:center; gap:6px; padding: 6px 10px; width:auto; font-weight:600; font-size:14px; opacity:0.9;" title="Back to Watchlist">
+                  ${ICONS.arrowLeft}
+                  <span>Back</span>
+              </button>
+          </div>
+          <div style="display:flex; gap:5px;">
+              <button id="btn-close" class="icon-btn" title="Close">${ICONS.close}</button>
+          </div>
+      `;
+      const btnBack = header.querySelector('#btn-back');
+      if (btnBack) {
+        btnBack.onclick = () => {
+          this.currentView = 'list';
+          this.renderContent();
+        };
+      }
+    } else {
+      header.innerHTML = `
+          <h2>EvenTrade</h2>
+          <div style="display:flex; gap:5px;">
+              <button id="btn-settings" class="icon-btn" title="Settings">${ICONS.settings}</button>
+              <button id="btn-close" class="icon-btn" title="Close">${ICONS.close}</button>
+          </div>
+      `;
+      const btnSettings = header.querySelector('#btn-settings');
+      if (btnSettings) {
+        btnSettings.onclick = () => {
+          this.currentView = 'settings';
+          this.renderContent();
+        };
+      }
+    }
+    
+    const btnClose = header.querySelector('#btn-close');
+    if (btnClose) btnClose.onclick = () => this.toggle();
+  }
+
   renderContent() {
+    this.updateHeader();
     const area = this.shadow.getElementById('main-content');
     area.innerHTML = '';
     if (this.currentView === 'settings') this.renderSettings(area);
