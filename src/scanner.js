@@ -12,23 +12,48 @@ export const Scanner = {
     return parser.parseFromString(text, 'text/html');
   },
 
-  extractFromDoc(doc) {
+
+
+  async scanPage(doc) {
+    const isZerodha = window.location.hostname.includes('zerodha.com');
+    Logger.info(`[Scanner] isZerodha: ${isZerodha}, URL: ${window.location.href}`);
     const symbols = [];
-    const rows = doc.querySelectorAll("table.data-table tbody tr");
-    rows.forEach(row => {
-      const link = row.querySelector("a[href*='/company/']");
-      if (link) {
-        const ticker = Utils.extractTickerFromUrl(link.getAttribute("href"));
-        if (ticker) symbols.push({ ticker, exchange: /^\d+$/.test(ticker) ? "BSE" : "NSE" });
+    
+    if (isZerodha) {
+      // Selector fixed: .holdings-table is likely on a div wrapper, not the table itself
+      const rows = doc.querySelectorAll(".holdings-table table tbody tr");
+      Logger.info(`[Scanner] Zerodha rows found: ${rows.length}`);
+      
+      for (const row of rows) {
+         const span = row.querySelector("td.instrument span");
+         if (span) {
+             const ticker = span.innerText.trim();
+             Logger.debug(`[Scanner] Found ticker: ${ticker}`);
+             const exchange = await Utils.getStockExchange(ticker) || 'NSE';
+             Logger.debug(`[Scanner] Resolved ${ticker} to ${exchange}`);
+             symbols.push({ ticker, exchange });
+         } else {
+             Logger.debug(`[Scanner] No instrument span found in row`, row);
+         }
       }
-    });
+    } else {
+      // Screener.in Logic
+      const rows = doc.querySelectorAll("table.data-table tbody tr");
+      rows.forEach(row => {
+        const link = row.querySelector("a[href*='/company/']");
+        if (link) {
+          const ticker = Utils.extractTickerFromUrl(link.getAttribute("href"));
+          if (ticker) symbols.push({ ticker, exchange: /^\d+$/.test(ticker) ? "BSE" : "NSE" });
+        }
+      });
+    }
     return symbols;
   },
 
   async scanAllPages(onProgress) {
     this.isScanning = true;
     let url = window.location.href;
-    let count = 0;
+    let accumulatedSymbols = [];
     let page = 1;
 
     try {
@@ -36,13 +61,13 @@ export const Scanner = {
         if (onProgress) onProgress(`Scanning Page ${page}...`);
         
         const doc = await this.fetchUrl(url);
-        const symbols = this.extractFromDoc(doc);
+        // Note: scanPage is now async because of API calls for Zerodha
+        const symbols = await this.scanPage(doc); 
+        
+        // Accumulate symbols to maintain Page 1 -> Page N order
+        accumulatedSymbols.push(...symbols);
 
-        symbols.forEach(s => {
-          if (Store.addSymbol(s.ticker, s.exchange)) count++;
-        });
-
-        // Find next link
+        // Find next link (Screener only)
         const nextLink = doc.querySelector("div.pagination a[rel='next']") ||
           Array.from(doc.querySelectorAll("a")).find(a => a.innerText.includes("Next"));
 
@@ -56,6 +81,9 @@ export const Scanner = {
     }
 
     this.isScanning = false;
-    return count;
+    
+    // Batch add to preserve order [P1...PN]
+    const addedCount = Store.addSymbols(accumulatedSymbols);
+    return addedCount;
   }
 };

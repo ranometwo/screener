@@ -51,6 +51,11 @@
 - **BSE Resolver:** Resolves numeric BSE codes to symbols via background fetch if needed.
 
 ## Recent Changes
+- **v3.8 (Zerodha & Yahoo API):**
+  - **Zerodha Support:** Added support for scanning Zerodha Holdings page (`kite.zerodha.com/holdings`).
+  - **Auto-Exchange Resolution:** Integrated Yahoo Finance API to automatically detect exchange (NSE/BSE) for manually added symbols and Zerodha holdings (e.g. `ROBU` -> `BSE`).
+  - **Async Scanning:** Refactored scanner to support async exchange resolution.
+  - **Watchlist Order:** Fixed bulk scan to preserve table order (A, B, C -> A, B, C...) instead of reversing it. New stocks now appear at the top in correct sequence.
 - **v3.7.1 (Bug Fix - Feb 01):**
   - **Special Character Support:** Fixed sidebar crash when rendering watchlists containing symbols with special characters (e.g. `&`), using robust attribute selectors.
 - **v3.7 (Watchlist Actions):**

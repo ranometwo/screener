@@ -106,5 +106,35 @@ export const Utils = {
       clearTimeout(timeout);
       timeout = setTimeout(() => func.apply(context, args), wait);
     };
+  },
+
+  async getStockExchange(symbol) {
+    const url = `https://query1.finance.yahoo.com/v1/finance/search?q=${symbol}`;
+
+    try {
+        const result = await new Promise((resolve) => {
+            chrome.runtime.sendMessage({ action: 'FETCH_PAGE', url }, resolve);
+        });
+
+        if (!result || !result.success) {
+            Logger.warn(`[Exchange Resolve] Fetch failed for ${symbol}: ${result?.error}`);
+            return null;
+        }
+
+        const data = JSON.parse(result.data.text);
+        
+        // Filter results for Indian exchanges
+        const quote = data.quotes.find(q => q.symbol.includes(symbol));
+        
+        if (quote) {
+            if (quote.exchange === 'NSI') return 'NSE';
+            if (quote.exchange === 'BSE') return 'BSE';
+            return quote.exchange; // Return actual exchange if different
+        }
+        return null; // Not Found
+    } catch (error) {
+        Logger.error("Error fetching exchange data:", error);
+        return null;
+    }
   }
 };

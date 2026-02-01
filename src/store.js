@@ -110,6 +110,26 @@ export const Store = {
     return false;
   },
 
+  addSymbols(items) {
+    const wl = this.activeWatchlist;
+    // Filter duplicates
+    const toAdd = items.filter(item => !wl.symbols.find(s => s.ticker === item.ticker && s.exchange === item.exchange));
+    
+    if (toAdd.length > 0) {
+      // Prepare items with default props
+      const enriched = toAdd.map(s => ({ 
+        ticker: s.ticker, 
+        exchange: s.exchange, 
+        color: 'none', 
+        addedAt: Date.now() 
+      }));
+      // Unshift all at once to preserve order (A,B,C -> A,B,C...Old)
+      wl.symbols.unshift(...enriched);
+      this.save();
+    }
+    return toAdd.length;
+  },
+
   removeSymbol(ticker) {
     const wl = this.activeWatchlist;
     wl.symbols = wl.symbols.filter(s => s.ticker !== ticker);

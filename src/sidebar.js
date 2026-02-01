@@ -227,9 +227,14 @@ export class Sidebar {
             <div id="scan-msg" class="status-msg"></div>
         `;
 
-    const addFn = () => {
+    const addFn = async () => {
       const val = actions.querySelector('#add-input').value.toUpperCase().trim();
-      if (val) { Store.addSymbol(val, 'NSE'); actions.querySelector('#add-input').value = ''; this.renderContent(); }
+      if (val) {
+        const exchange = await Utils.getStockExchange(val) || 'NSE';
+        Store.addSymbol(val, exchange); 
+        actions.querySelector('#add-input').value = ''; 
+        this.renderContent(); 
+      }
     };
     const inputEl = actions.querySelector('#add-input');
     inputEl.onkeydown = (e) => { 
@@ -247,7 +252,8 @@ export class Sidebar {
       let count = 0;
       if (all) count = await Scanner.scanAllPages((txt) => msg.innerText = txt);
       else {
-        Scanner.extractFromDoc(document).forEach(s => { if (Store.addSymbol(s.ticker, s.exchange)) count++; });
+        const symbols = await Scanner.scanPage(document);
+        count = Store.addSymbols(symbols);
       }
 
       this.renderContent();
