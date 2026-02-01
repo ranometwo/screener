@@ -1,0 +1,2249 @@
+<html lang="en" style="--vsc-domain: &quot;www.screener.in&quot;;"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <title>capacity expansion - Screener</title>
+    
+
+    <!-- plausible -->
+    <script defer="" event-user="premium" data-domain="screener.in" src="https://plausible.screener.in/js/script.pageview-props.tagged-events.js"></script>
+    <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
+    <!-- FONT -->
+    <link rel="stylesheet" href="https://cdn-static.screener.in/inter/inter.bccd7465af74.css?v=2">
+    <link rel="stylesheet" href="https://cdn-static.screener.in/fontello/css/fontello.2dd614ac6a37.css?v=2">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn-static.screener.in/css/normalize.a2444750a947.css" media="all">
+    <link rel="stylesheet" href="https://cdn-static.screener.in/css/skeleton.e2c2c0d583cf.css" media="all">
+    <link rel="stylesheet" href="https://cdn-static.screener.in/css/custom.f89a9b9e8304.css" media="all">
+
+    
+    
+    
+    
+
+    <meta name="author" content="Mittal Analytics Private Limited">
+
+    <!-- PWA manifest -->
+    <meta name="theme-color" content="#fff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#222530" media="(prefers-color-scheme: dark)">
+    <link rel="manifest" href="/static/manifest.json">
+
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn-static.screener.in/favicon/apple-touch-icon.b6e5f24bf7d3.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn-static.screener.in/favicon/favicon-32x32.00205914303a.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn-static.screener.in/favicon/favicon-16x16.2b35594b2f33.png">
+    <link rel="mask-icon" href="https://cdn-static.screener.in/favicon/safari-pinned-tab.adbe3ed3c5ad.svg" color="#8ED443">
+    <meta name="msapplication-TileColor" content="#da532c">
+  </head>
+
+  <body class="light flex-column">
+    
+      <nav class="u-full-width no-print">
+        <div id="mobile-search"><div class="has-addon left-addon dropdown-typeahead">
+  <i class="addon icon-search"></i>
+  <input aria-label="Search for a company" type="search" autocomplete="off" spellcheck="false" placeholder="Search for a company" class="u-full-width" data-company-search="true" style="margin-bottom: 0px;">
+<ul class="dropdown-content"></ul></div>
+</div>
+
+<ul class="bottom-menu-bar hide-from-tablet-landscape">
+  
+    <li class="">
+      <a href="/">
+        <i class="icon-news"></i>
+        <br>
+        Feed
+      </a>
+    </li>
+  
+
+  <li class="">
+    <a href="/explore/">
+      <i class="icon-screens"></i>
+      <br>
+      Screens
+    </a>
+  </li>
+
+  <li>
+    <button type="button" onclick="MobileMenu.toggleSearch(this)" class="search-button" title="Search">
+      <i class="icon-search" style="font-size: 18px"></i>
+    </button>
+  </li>
+
+  <li>
+    <button class="button-plain" onclick="Modal.showInModal('#nav-tools-menu')">
+      <i class="icon-tools"></i>
+      <br>
+      Tools
+    </button>
+  </li>
+
+  
+    <li class="">
+      <button class="button-plain" onclick="Modal.showInModal('#nav-user-menu')">
+        <i class="icon-user"></i>
+        <br>
+        Account
+      </button>
+    </li>
+  
+</ul>
+
+        <div class="top-nav-holder">
+          <div class="container">
+
+
+
+<div class="layer-holder top-navigation">
+  <div class="layer flex flex-space-between" style="align-items: center;
+              height: 50px">
+    <div class="flex" style="align-items: center">
+      <a href="/" class="logo-holder">
+        <img alt="Screener Logo" class="logo" src="https://cdn-static.screener.in/img/logo-black.f44abb4998d1.svg">
+      </a>
+
+      <div class="desktop-links" style="margin-left: 48px">
+        <a href="/">
+          
+            Feed
+          
+        </a>
+        <a href="/explore/">Screens</a>
+        <div class="dropdown-menu">
+          <button class="button-plain" type="button" onclick="Utils.toggleDropdown(event)">
+            Tools
+            <i class="icon-down"></i>
+          </button>
+          <ul class="dropdown-content flex-column tools-menu" style="width: 350px" id="nav-tools-menu">
+            <li>
+              <a href="/screen/new/" class="flex flex-align-center flex-gap-16">
+                <div class="bg-stripes square-56">
+                  <img src="https://cdn-static.screener.in/icons/screens.e960a5daedf9.svg" alt="Create a stock screen">
+                </div>
+                <div>
+                  <div class="font-weight-500 font-size-14">Create a stock screen</div>
+                  <div class="sub font-size-13">Run queries on 10 years of financial data</div>
+                </div>
+              </a>
+            </li>
+            <li class="flex flex-align-center no-hover" style="padding: 4px 0;">
+              <div class="button button-primary premium-indicator flex flex-align-center">
+                <img src="https://cdn-static.screener.in/icons/crown.fb0d2413ee43.svg" alt="Premium icon" style="margin-right: 8px">
+                <span>Premium features</span>
+              </div>
+              <hr class="flex-grow" style="padding: 0; margin: 0;">
+            </li>
+            
+              <li>
+                <a href="/ai/" class="flex flex-align-center flex-gap-16">
+                  <div class="bg-stripes square-56">
+                    <img src="https://cdn-static.screener.in/icons/ai.970ef1d1cabb.svg" alt="Screener AI">
+                  </div>
+                  <div>
+                    <div class="font-weight-500 font-size-14">Screener AI</div>
+                    <div class="sub font-size-13">Extract valuable insights from hundreds of company documents.</div>
+                  </div>
+                </a>
+              </li>
+            
+            <li>
+              <a href="/hs/" class="flex flex-align-center flex-gap-16">
+                <div class="bg-stripes square-56">
+                  <img src="https://cdn-static.screener.in/icons/export.d623f0029933.svg" alt="Commodity Prices">
+                </div>
+                <div>
+                  <div class="font-weight-500 font-size-14">Commodity Prices</div>
+                  <div class="sub font-size-13">Analyze price trends for 10,000+ commodities over the past 10 years.</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="/people/" class="flex flex-align-center flex-gap-16">
+                <div class="bg-stripes square-56">
+                  <img src="https://cdn-static.screener.in/icons/shares.10acc20cb936.svg" alt="Search shareholders by name">
+                </div>
+                <div>
+                  <div class="font-weight-500 font-size-14">Search shareholders</div>
+                  <div class="sub font-size-13">Find all companies where a person owns more than 1% of shares.</div>
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href="/announcements/" class="flex flex-align-center flex-gap-16">
+                <div class="bg-stripes square-56">
+                  <img src="https://cdn-static.screener.in/icons/loudspeaker.88769927f6eb.svg" alt="Loudspeaker">
+                </div>
+                <div>
+                  <div class="font-weight-500 font-size-14">Company Announcements</div>
+                  <div class="sub font-size-13">
+                    Stay updated. Search, filter and set alerts for the newest disclosures and developments.
+                  </div>
+                </div>
+              </a>
+            </li>
+            
+              <li>
+                <a href="/ratings/" class="flex flex-align-center flex-gap-16">
+                  <div class="bg-stripes square-56">
+                    <img src="https://cdn-static.screener.in/icons/credits.612583940c75.svg" alt="Latest Credit Ratings">
+                  </div>
+                  <div>
+                    <div class="font-weight-500 font-size-14">Credit rating reports</div>
+                    <div class="sub font-size-13">Lookup credit ratings for unlisted competitors and related companies.</div>
+                  </div>
+                </a>
+              </li>
+              <li class="text-align-center font-size-14 sub no-hover" style="padding: 8px 8px 0">You are a premium subscriber 👍</li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="show-from-tablet-landscape flex flex-gap-16" style="justify-content: flex-end;
+                flex: 1 1 400px">
+      <div class="search" id="desktop-search"><div class="has-addon left-addon dropdown-typeahead">
+  <i class="addon icon-search"></i>
+  <input aria-label="Search for a company" type="search" autocomplete="off" spellcheck="false" placeholder="Search for a company" class="u-full-width" data-company-search="true" style="margin-bottom: 0px;">
+<ul class="dropdown-content"></ul></div>
+</div>
+
+      
+        <div id="account-dropdown" class="dropdown-menu">
+          <button class="account" type="button" onclick="Utils.toggleDropdown(event)">
+            <i class="icon-user-line blue-icon"></i>
+            Ranjanaggrawal
+            
+            <i class="icon-down"></i>
+          </button>
+
+          <div class="dropdown-content flex-column font-size-14 font-weight-500" style="right: 0;
+                      width: 154px" id="nav-user-menu">
+            <a href="/user/account/">
+              <i class="icon-settings"></i>
+              Profile
+            </a>
+            <a href="/alerts/">
+              <i class="icon-bell"></i>
+              Alerts
+            </a>
+            <a href="/notebook/">
+              <i class="icon-book-open"></i>
+              Notebook
+            </a>
+            
+            
+              <a href="/premium/member/">
+                <i class="icon-crown"></i>
+                Payments
+              </a>
+            
+            
+              
+                <a href="/ai/usage/">
+                  <i class="icon-chat-ai"></i>
+                  AI Usage
+                </a>
+              
+            
+            <hr class="no-hover">
+            <form action="/logout/" method="post" style="padding: 0">
+              <input type="hidden" name="csrfmiddlewaretoken" value="yZjEQET3VsWmf2YvlznR97jTipi2P92x53hlnyoFLON7EVIc8ASgQ5vzQZfofjuF">
+              <button type="submit" class="button-plain" style="width: 100%;
+                             padding: 4px 16px">
+                <i class="icon-off"></i>
+                Logout
+              </button>
+            </form>
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+</div>
+        </div>
+      </nav>
+    
+
+    
+    
+
+    
+      <main class="flex-grow container">
+        
+
+
+  
+    
+    
+    
+
+    
+    
+  
+
+
+
+
+
+
+        
+        <div class="breadcrumb hidden-if-empty"></div>
+        
+
+        
+          
+          <div class="card card-large">
+            
+<div id="screen-info" class="flex-row flex-space-between flex-gap-8 margin-bottom-16" data-screen-id="1374269">
+  <h1 class="margin-0">
+    
+    capacity expansion
+    
+  </h1>
+
+  <div class="flex flex-gap-8 flex-end flex-align-center">
+    
+    
+      
+      <form action="/screen/delete/1374269/" method="POST">
+        <input type="hidden" name="csrfmiddlewaretoken" value="yZjEQET3VsWmf2YvlznR97jTipi2P92x53hlnyoFLON7EVIc8ASgQ5vzQZfofjuF">
+        <button type="submit">
+          <i class="icon-trash"></i> Delete Screen
+        </button>
+      </form>
+      
+
+      
+      <form action="/alerts/add-screen-1374269/" method="POST">
+        <input type="hidden" name="csrfmiddlewaretoken" value="yZjEQET3VsWmf2YvlznR97jTipi2P92x53hlnyoFLON7EVIc8ASgQ5vzQZfofjuF">
+        <button type="submit" class="button-primary">
+          <i class="icon-bell"></i> Get Email Updates
+        </button>
+      </form>
+      
+    
+  </div>
+</div>
+
+
+<div style="max-width: 750px">
+  <p>( (Sales growth 3Years &gt; 12% AND Net block &gt; Net block 3Years back * 2) OR (Net block + Capital work in progress ) &gt; 1.5 * (Net block preceding year + Capital work in progress preceding year ) ) AND Sales last year &gt; 25 AND Debt to equity &lt; 3 AND Market Capitalization &gt; 1000 AND Promoter holding &gt; 50%</p>
+  <p class="sub">
+    by <a href="/user/3368679/">Ranjanaggrawal</a>
+  </p>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div data-messages=""></div>
+
+<div class="flex-row flex-gap-8 flex-space-between flex-align-center">
+  
+    <div class="sub" data-page-info="">
+      810 results found: Showing page 1 of 17
+    </div>
+  
+
+  <div class="flex flex-gap-8 flex-end">
+    
+      <div class="dropdown-filter">
+        <button onclick="toggleIndustryFilter(event)" class="button-small plausible-event-name=Industry+Filter plausible-event-user=premium" data-api-url="/api/get/sectors/?url_name=screen&amp;screen_id=1374269&amp;slug_name=capacity-expansion">
+          <i class="icon-funnel"></i>
+          Industry
+        </button>
+        <ul class="dropdown-content font-size-14" style="min-width: 225px;">
+        </ul>
+      </div>
+    
+
+    
+      <script src="https://cdn-static.screener.in/js/industry-filter.5f299c25b014.js"></script>
+    
+
+    
+      <form action="/api/export/screen/?url_name=screen&amp;screen_id=1374269&amp;slug_name=capacity-expansion" method="POST" class="hide-on-mobile">
+        <input type="hidden" name="csrfmiddlewaretoken" value="yZjEQET3VsWmf2YvlznR97jTipi2P92x53hlnyoFLON7EVIc8ASgQ5vzQZfofjuF">
+        <button class="button-small tooltip-left plausible-event-name=Excel+Screen plausible-event-user=premium" aria-label="Download Results" type="submit" data-tooltip="Download Results">
+          <i class="icon-download"></i>
+          Export
+        </button>
+      </form>
+    
+
+    
+      <a href="/user/columns/?next=/screens/1374269/capacity-expansion/" class="button button-small button-secondary plausible-event-name=Edit+Columns plausible-event-user=premium">
+        <i class="icon-cog"></i>
+        Edit Columns
+      </a>
+    
+  </div>
+</div>
+
+<div class="responsive-holder fill-card-width" data-page-results="">
+  <table class="data-table text-nowrap striped mark-visited no-scroll-right highlight-on-hover">
+    <tbody>
+      
+        
+          <tr>
+            <th class="text" scope="colgroup">
+              
+                <a href="?order=asc" class="" aria-label="Default Sort">S.No.</a>
+              
+            </th>
+
+            <th class="text" scope="colgroup">
+              
+                <a href="?sort=name&amp;order=desc" class="" aria-label="Sort on Name">Name</a>
+              
+            </th>
+
+            
+              <th data-tooltip="Current Price" scope="colgroup">
+                
+                  <a href="?sort=current+price&amp;order=desc" class="" aria-label="Sort on Current Price">
+                    CMP
+                    <span style="color: hsl(0, 0%, 45%)">Rs.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Price to Earning" scope="colgroup">
+                
+                  <a href="?sort=price+to+earning&amp;order=desc" class="" aria-label="Sort on Price to Earning">
+                    P/E
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Industry PE" scope="colgroup">
+                
+                  <a href="?sort=industry+pe&amp;order=desc" class="" aria-label="Sort on Industry PE">
+                    Ind PE
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Market Capitalization" scope="colgroup">
+                
+                  <a href="?sort=market+capitalization&amp;order=desc" class="" aria-label="Sort on Market Capitalization">
+                    Mar Cap
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return on equity" scope="colgroup">
+                
+                  <a href="?sort=return+on+equity&amp;order=desc" class="" aria-label="Sort on Return on equity">
+                    ROE
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Sales" scope="colgroup">
+                
+                  <a href="?sort=sales&amp;order=desc" class="" aria-label="Sort on Sales">
+                    Sales
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="NPM last year" scope="colgroup">
+                
+                  <a href="?sort=npm+last+year&amp;order=desc" class="" aria-label="Sort on NPM last year">
+                    NPM Ann
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Sales growth" scope="colgroup">
+                
+                  <a href="?sort=sales+growth&amp;order=desc" class="" aria-label="Sort on Sales growth">
+                    Sales growth
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Profit growth" scope="colgroup">
+                
+                  <a href="?sort=profit+growth&amp;order=desc" class="" aria-label="Sort on Profit growth">
+                    Profit growth
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Sales growth 3Years" scope="colgroup">
+                
+                  <a href="?sort=sales+growth+3years&amp;order=desc" class="" aria-label="Sort on Sales growth 3Years">
+                    Sales Var 3Yrs
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Profit growth 3Years" scope="colgroup">
+                
+                  <a href="?sort=profit+growth+3years&amp;order=desc" class="" aria-label="Sort on Profit growth 3Years">
+                    Profit Var 3Yrs
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Net profit" scope="colgroup">
+                
+                  <a href="?sort=net+profit&amp;order=desc" class="" aria-label="Sort on Net profit">
+                    NP 12M
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 1day" scope="colgroup">
+                
+                  <a href="?sort=return+over+1day&amp;order=desc" class="" aria-label="Sort on Return over 1day">
+                    1day return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 1week" scope="colgroup">
+                
+                  <a href="?sort=return+over+1week&amp;order=desc" class="" aria-label="Sort on Return over 1week">
+                    1wk return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 3months" scope="colgroup">
+                
+                  <a href="?sort=return+over+3months&amp;order=desc" class="" aria-label="Sort on Return over 3months">
+                    3mth return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 1year" scope="colgroup">
+                
+                  <a href="?sort=return+over+1year&amp;order=desc" class="" aria-label="Sort on Return over 1year">
+                    1Yr return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Down from 52w high" scope="colgroup">
+                
+                  <a href="?sort=down+from+52w+high&amp;order=desc" class="" aria-label="Sort on Down from 52w high">
+                    Down
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Multibagger" scope="colgroup">
+                
+                  <a href="?sort=multibagger&amp;order=desc" class="" aria-label="Sort on Multibagger">
+                    Multi
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="52 Week multibagger" scope="colgroup">
+                
+                  <a href="?sort=52+week+multibagger&amp;order=desc" class="" aria-label="Sort on 52 Week multibagger">
+                    52LMulti
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Net block" scope="colgroup">
+                
+                  <a href="?sort=net+block&amp;order=desc" class="" aria-label="Sort on Net block">
+                    Net Block
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Net block 3Years back" scope="colgroup">
+                
+                  <a href="?sort=net+block+3years+back&amp;order=desc" class="" aria-label="Sort on Net block 3Years back">
+                    Net Block 3Yrs Back
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Average volume expansion" scope="colgroup">
+                
+                  <a href="?sort=average+volume+expansion&amp;order=desc" class="desc" aria-label="Sort on Average volume expansion">
+                    avgvolexp
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+          </tr>
+        
+
+        <tr data-row-company-id="1284374">
+          
+            <td class="text">1.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/IKIO/consolidated/" target="_blank">IKIO Tech</a>
+          </td>
+          <td>153.09</td><td>62.12</td><td>24.61</td><td>1180.33</td><td>5.55</td><td>542.24</td><td>6.67</td><td>15.77</td><td>-55.59</td><td>13.56</td><td>-15.13</td><td>23.37</td><td>2.44</td><td>2.48</td><td>-27.68</td><td>-32.77</td><td>49.64</td><td>1.07</td><td>1.07</td><td>206.12</td><td>60.47</td><td>15.42</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1273694">
+          
+            <td class="text">2.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/540405/" target="_blank">Oceanic Foods</a>
+          </td>
+          <td>63.23</td><td>12.00</td><td>20.57</td><td>71.13</td><td>13.53</td><td>166.03</td><td>3.33</td><td>26.12</td><td>54.03</td><td>5.91</td><td>24.32</td><td>5.93</td><td>-5.49</td><td>-1.05</td><td>-0.11</td><td>27.76</td><td>24.64</td><td>3.00</td><td>1.73</td><td>18.94</td><td>13.32</td><td>8.91</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1285708">
+          
+            <td class="text">3.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/VIJAYPD/" target="_blank">Vijaypd Ceutical</a>
+          </td>
+          <td>51.25</td><td>23.44</td><td>35.36</td><td>100.09</td><td>24.77</td><td>117.09</td><td>4.10</td><td>97.95</td><td>189.16</td><td></td><td></td><td>4.80</td><td>12.64</td><td>28.77</td><td>16.74</td><td></td><td>7.66</td><td>1.46</td><td>1.46</td><td>8.48</td><td></td><td>8.34</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1285317">
+          
+            <td class="text">4.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/544353/" target="_blank">Amwill Health</a>
+          </td>
+          <td>34.53</td><td>8.55</td><td>28.98</td><td>69.07</td><td>24.85</td><td>38.64</td><td>28.73</td><td>-10.19</td><td>-14.02</td><td>12.55</td><td>59.59</td><td>8.08</td><td>-12.69</td><td>-12.60</td><td>-36.06</td><td></td><td>67.08</td><td>1.02</td><td>1.02</td><td>1.50</td><td>0.44</td><td>7.02</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1285241">
+          
+            <td class="text">5.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/544348/consolidated/" target="_blank">GB Logistics</a>
+          </td>
+          <td>50.00</td><td>3.06</td><td>23.28</td><td>40.97</td><td>26.38</td><td>223.10</td><td>4.36</td><td>120.04</td><td>143.27</td><td></td><td></td><td>13.38</td><td>5.00</td><td>10.20</td><td>19.33</td><td>-35.63</td><td>32.24</td><td>1.50</td><td>1.50</td><td>6.12</td><td></td><td>6.02</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1284722">
+          
+            <td class="text">6.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/ENFUSE/" target="_blank">Enfuse Solutions</a>
+          </td>
+          <td>226.95</td><td></td><td>25.71</td><td>200.80</td><td>9.68</td><td>53.47</td><td>7.45</td><td>15.94</td><td>-225.00</td><td>19.41</td><td>17.84</td><td>-7.60</td><td>10.71</td><td>10.71</td><td>18.20</td><td>-8.76</td><td>20.09</td><td>2.33</td><td>1.38</td><td>16.37</td><td>1.37</td><td>5.83</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1274127">
+          
+            <td class="text">7.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/SERVOTECH/" target="_blank">Servotech Renew</a>
+          </td>
+          <td>70.86</td><td>49.44</td><td>23.67</td><td>1600.34</td><td>18.95</td><td>553.21</td><td>5.70</td><td>-4.94</td><td>12.32</td><td>63.75</td><td>108.36</td><td>32.37</td><td>20.00</td><td>19.05</td><td>-40.59</td><td>-52.08</td><td>57.95</td><td>109.02</td><td>1.23</td><td>119.18</td><td>11.79</td><td>5.30</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1275212">
+          
+            <td class="text">8.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/543828/consolidated/" target="_blank">Sudarshan Pharma</a>
+          </td>
+          <td>20.00</td><td>22.67</td><td>26.33</td><td>481.32</td><td>14.83</td><td>643.73</td><td>3.57</td><td>8.95</td><td>57.33</td><td>12.25</td><td>50.21</td><td>19.39</td><td>1.52</td><td>0.00</td><td>-28.01</td><td>-51.36</td><td>50.37</td><td>3.86</td><td>1.08</td><td>52.74</td><td>6.47</td><td>4.65</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1284564">
+          
+            <td class="text">9.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/544023/" target="_blank">Kalyani Cast-Tec</a>
+          </td>
+          <td>478.05</td><td>21.78</td><td>29.18</td><td>343.27</td><td>24.25</td><td>161.43</td><td>10.01</td><td>39.81</td><td>34.24</td><td>41.20</td><td>128.40</td><td>15.76</td><td>4.38</td><td>3.95</td><td>-9.08</td><td>18.90</td><td>23.51</td><td>1.81</td><td>1.36</td><td>17.99</td><td>5.61</td><td>4.48</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="881">
+          
+            <td class="text">10.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/530643/consolidated/" target="_blank">Eco Recyc.</a>
+          </td>
+          <td>390.00</td><td>42.81</td><td>20.68</td><td>752.58</td><td>84.05</td><td>39.34</td><td>50.27</td><td>-6.87</td><td>-22.89</td><td>42.19</td><td>141.29</td><td>17.94</td><td>-11.73</td><td>-13.80</td><td>-34.60</td><td>-53.05</td><td>54.28</td><td>70.14</td><td>1.05</td><td>58.34</td><td>20.45</td><td>4.21</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1284989">
+          
+            <td class="text">11.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/RVTH/consolidated/" target="_blank">Revathi Equip</a>
+          </td>
+          <td>641.95</td><td>22.06</td><td>29.18</td><td>197.02</td><td>17.37</td><td>141.82</td><td>11.33</td><td>-36.03</td><td>-68.39</td><td>-0.47</td><td>17.91</td><td>8.93</td><td>-1.31</td><td>-1.24</td><td>-28.36</td><td>-65.91</td><td>67.89</td><td>1.05</td><td>1.05</td><td>47.34</td><td>69.98</td><td>4.11</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1274913">
+          
+            <td class="text">12.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/DUGLOBAL/consolidated/" target="_blank">DU Digital</a>
+          </td>
+          <td>32.75</td><td>43.67</td><td>42.34</td><td>235.38</td><td>7.66</td><td>53.28</td><td>13.00</td><td>20.41</td><td>15.67</td><td>72.39</td><td>185.75</td><td>5.26</td><td>12.93</td><td>7.91</td><td>-0.46</td><td>-45.87</td><td>48.83</td><td>12.69</td><td>1.24</td><td>11.20</td><td>5.55</td><td>4.03</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1274179">
+          
+            <td class="text">13.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/OMFURN/" target="_blank">Omfurn India</a>
+          </td>
+          <td>51.55</td><td>11.56</td><td>31.67</td><td>60.70</td><td>11.58</td><td>76.76</td><td>7.64</td><td>0.34</td><td>27.12</td><td>39.73</td><td>112.51</td><td>5.25</td><td>-19.95</td><td>-10.35</td><td>-53.97</td><td>-54.78</td><td>63.18</td><td>13.75</td><td>1.01</td><td>18.14</td><td>10.13</td><td>3.78</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1284634">
+          
+            <td class="text">14.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/ADDICTIVE/" target="_blank">Addictive Learn</a>
+          </td>
+          <td>105.00</td><td>19.16</td><td>21.19</td><td>167.05</td><td>13.08</td><td>75.39</td><td>12.90</td><td>2.07</td><td>0.81</td><td>58.23</td><td>177.49</td><td>8.72</td><td>4.22</td><td>-1.32</td><td>-24.19</td><td>-64.50</td><td>64.39</td><td>1.07</td><td>1.07</td><td>67.10</td><td>0.16</td><td>3.76</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1275401">
+          
+            <td class="text">15.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/543737/" target="_blank">Aveer Foods</a>
+          </td>
+          <td>530.15</td><td>55.47</td><td>50.02</td><td>213.55</td><td>17.35</td><td>126.42</td><td>3.67</td><td>24.74</td><td>38.99</td><td>11.02</td><td>40.80</td><td>3.85</td><td>-8.88</td><td>-11.79</td><td>-22.61</td><td>-3.60</td><td>37.63</td><td>3.78</td><td>1.11</td><td>27.37</td><td>7.90</td><td>3.62</td>
+        </tr>
+      
+        
+          <tr>
+            <th class="text" scope="colgroup">
+              
+                <a href="?order=asc" class="" aria-label="Default Sort">S.No.</a>
+              
+            </th>
+
+            <th class="text" scope="colgroup">
+              
+                <a href="?sort=name&amp;order=desc" class="" aria-label="Sort on Name">Name</a>
+              
+            </th>
+
+            
+              <th data-tooltip="Current Price" scope="colgroup">
+                
+                  <a href="?sort=current+price&amp;order=desc" class="" aria-label="Sort on Current Price">
+                    CMP
+                    <span style="color: hsl(0, 0%, 45%)">Rs.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Price to Earning" scope="colgroup">
+                
+                  <a href="?sort=price+to+earning&amp;order=desc" class="" aria-label="Sort on Price to Earning">
+                    P/E
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Industry PE" scope="colgroup">
+                
+                  <a href="?sort=industry+pe&amp;order=desc" class="" aria-label="Sort on Industry PE">
+                    Ind PE
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Market Capitalization" scope="colgroup">
+                
+                  <a href="?sort=market+capitalization&amp;order=desc" class="" aria-label="Sort on Market Capitalization">
+                    Mar Cap
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return on equity" scope="colgroup">
+                
+                  <a href="?sort=return+on+equity&amp;order=desc" class="" aria-label="Sort on Return on equity">
+                    ROE
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Sales" scope="colgroup">
+                
+                  <a href="?sort=sales&amp;order=desc" class="" aria-label="Sort on Sales">
+                    Sales
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="NPM last year" scope="colgroup">
+                
+                  <a href="?sort=npm+last+year&amp;order=desc" class="" aria-label="Sort on NPM last year">
+                    NPM Ann
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Sales growth" scope="colgroup">
+                
+                  <a href="?sort=sales+growth&amp;order=desc" class="" aria-label="Sort on Sales growth">
+                    Sales growth
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Profit growth" scope="colgroup">
+                
+                  <a href="?sort=profit+growth&amp;order=desc" class="" aria-label="Sort on Profit growth">
+                    Profit growth
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Sales growth 3Years" scope="colgroup">
+                
+                  <a href="?sort=sales+growth+3years&amp;order=desc" class="" aria-label="Sort on Sales growth 3Years">
+                    Sales Var 3Yrs
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Profit growth 3Years" scope="colgroup">
+                
+                  <a href="?sort=profit+growth+3years&amp;order=desc" class="" aria-label="Sort on Profit growth 3Years">
+                    Profit Var 3Yrs
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Net profit" scope="colgroup">
+                
+                  <a href="?sort=net+profit&amp;order=desc" class="" aria-label="Sort on Net profit">
+                    NP 12M
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 1day" scope="colgroup">
+                
+                  <a href="?sort=return+over+1day&amp;order=desc" class="" aria-label="Sort on Return over 1day">
+                    1day return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 1week" scope="colgroup">
+                
+                  <a href="?sort=return+over+1week&amp;order=desc" class="" aria-label="Sort on Return over 1week">
+                    1wk return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 3months" scope="colgroup">
+                
+                  <a href="?sort=return+over+3months&amp;order=desc" class="" aria-label="Sort on Return over 3months">
+                    3mth return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 1year" scope="colgroup">
+                
+                  <a href="?sort=return+over+1year&amp;order=desc" class="" aria-label="Sort on Return over 1year">
+                    1Yr return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Down from 52w high" scope="colgroup">
+                
+                  <a href="?sort=down+from+52w+high&amp;order=desc" class="" aria-label="Sort on Down from 52w high">
+                    Down
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Multibagger" scope="colgroup">
+                
+                  <a href="?sort=multibagger&amp;order=desc" class="" aria-label="Sort on Multibagger">
+                    Multi
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="52 Week multibagger" scope="colgroup">
+                
+                  <a href="?sort=52+week+multibagger&amp;order=desc" class="" aria-label="Sort on 52 Week multibagger">
+                    52LMulti
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Net block" scope="colgroup">
+                
+                  <a href="?sort=net+block&amp;order=desc" class="" aria-label="Sort on Net block">
+                    Net Block
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Net block 3Years back" scope="colgroup">
+                
+                  <a href="?sort=net+block+3years+back&amp;order=desc" class="" aria-label="Sort on Net block 3Years back">
+                    Net Block 3Yrs Back
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Average volume expansion" scope="colgroup">
+                
+                  <a href="?sort=average+volume+expansion&amp;order=desc" class="desc" aria-label="Sort on Average volume expansion">
+                    avgvolexp
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+          </tr>
+        
+
+        <tr data-row-company-id="1410">
+          
+            <td class="text">16.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/517370/" target="_blank">Incap</a>
+          </td>
+          <td>67.00</td><td>41.41</td><td>23.67</td><td>34.37</td><td>4.95</td><td>28.42</td><td>2.38</td><td>-12.82</td><td>-7.78</td><td>13.18</td><td>5.57</td><td>0.83</td><td>-5.83</td><td>-10.54</td><td>-35.39</td><td>-24.17</td><td>58.38</td><td>11.92</td><td>1.01</td><td>5.82</td><td>3.49</td><td>3.49</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="3673">
+          
+            <td class="text">17.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/530627/consolidated/" target="_blank">Vipul Organics</a>
+          </td>
+          <td>210.90</td><td>75.54</td><td>26.33</td><td>401.86</td><td>6.78</td><td>162.53</td><td>2.54</td><td>5.05</td><td>30.71</td><td>6.92</td><td>-13.24</td><td>5.31</td><td>-0.33</td><td>-0.17</td><td>14.59</td><td>19.07</td><td>15.30</td><td>83.03</td><td>1.82</td><td>36.54</td><td>36.14</td><td>3.35</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1285208">
+          
+            <td class="text">18.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/ANYA/consolidated/" target="_blank">Anya Polytech &amp;</a>
+          </td>
+          <td>20.95</td><td>39.90</td><td>18.44</td><td>251.40</td><td>12.71</td><td>158.98</td><td>6.10</td><td>10.85</td><td>-14.51</td><td>14.21</td><td>127.02</td><td>6.38</td><td>-0.24</td><td>-1.41</td><td>-8.32</td><td>-3.23</td><td>27.88</td><td>1.29</td><td>1.08</td><td>49.98</td><td>17.95</td><td>3.25</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1275182">
+          
+            <td class="text">19.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/COOLCAPS/consolidated/" target="_blank">Cool Caps</a>
+          </td>
+          <td>40.20</td><td>38.56</td><td>18.38</td><td>464.71</td><td>24.70</td><td>409.56</td><td>5.06</td><td>143.77</td><td>130.40</td><td>65.20</td><td>50.05</td><td>12.05</td><td>-4.06</td><td>-40.27</td><td>-48.16</td><td>-40.62</td><td>59.60</td><td>13.31</td><td>1.03</td><td>121.84</td><td>26.52</td><td>3.13</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1285008">
+          
+            <td class="text">20.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/THESL/" target="_blank">Thinking Hats</a>
+          </td>
+          <td>21.45</td><td>8.12</td><td>15.11</td><td>26.79</td><td>18.89</td><td>47.38</td><td>7.72</td><td>63.04</td><td>-14.06</td><td>60.18</td><td>115.05</td><td>3.30</td><td>-0.46</td><td>-18.60</td><td>-34.20</td><td>-48.62</td><td>50.69</td><td>1.05</td><td>1.05</td><td>22.94</td><td>0.52</td><td>3.06</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1285207">
+          
+            <td class="text">21.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/UNIMECH/consolidated/" target="_blank">Unimech Aero.</a>
+          </td>
+          <td>863.80</td><td>54.71</td><td>56.22</td><td>4352.50</td><td>19.91</td><td>247.24</td><td>31.87</td><td>-0.20</td><td>0.99</td><td>88.36</td><td>182.60</td><td>79.56</td><td>-1.94</td><td>1.71</td><td>-14.68</td><td>-32.48</td><td>38.17</td><td>1.07</td><td>1.07</td><td>195.54</td><td>24.67</td><td>2.85</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1285821">
+          
+            <td class="text">22.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/544656/" target="_blank">HRS Aluglaze</a>
+          </td>
+          <td>203.05</td><td>76.02</td><td>18.82</td><td>391.53</td><td>34.25</td><td>42.11</td><td>12.23</td><td>57.77</td><td>217.90</td><td></td><td></td><td>5.15</td><td>9.58</td><td>17.47</td><td></td><td></td><td>3.24</td><td>1.61</td><td>1.61</td><td>46.08</td><td></td><td>2.82</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1174">
+          
+            <td class="text">23.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/UYFINCORP/" target="_blank">U. Y. Fincorp</a>
+          </td>
+          <td>12.78</td><td>14.22</td><td>18.91</td><td>245.09</td><td>3.62</td><td>79.27</td><td>10.38</td><td>-48.16</td><td>-4.06</td><td>10.00</td><td>54.03</td><td>17.24</td><td>2.24</td><td>1.91</td><td>-17.44</td><td>-44.07</td><td>47.86</td><td>18.00</td><td>1.15</td><td>5.08</td><td>1.12</td><td>2.76</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1284850">
+          
+            <td class="text">24.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/544213/consolidated/" target="_blank">Aelea Commoditi.</a>
+          </td>
+          <td>136.60</td><td>45.69</td><td>21.27</td><td>278.24</td><td>3.34</td><td>268.09</td><td>1.39</td><td>60.68</td><td>-56.19</td><td>21.02</td><td>-37.95</td><td>4.28</td><td>6.97</td><td>8.89</td><td>-28.58</td><td>-46.35</td><td>47.46</td><td>1.12</td><td>1.12</td><td>73.09</td><td>10.27</td><td>2.76</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1275346">
+          
+            <td class="text">25.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/VITAL/consolidated/" target="_blank">Vital Chemtech</a>
+          </td>
+          <td>52.90</td><td>41.00</td><td>26.33</td><td>126.70</td><td>4.60</td><td>132.54</td><td>3.03</td><td>15.84</td><td>463.53</td><td>32.46</td><td>-20.20</td><td>3.09</td><td>-3.02</td><td>1.73</td><td>-17.73</td><td>-25.60</td><td>31.30</td><td>1.10</td><td>1.10</td><td>39.14</td><td>17.38</td><td>2.73</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1275194">
+          
+            <td class="text">26.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/KRISHNADEF/" target="_blank">Krishna Defence</a>
+          </td>
+          <td>1002.70</td><td>55.53</td><td>56.22</td><td>1495.93</td><td>18.44</td><td>221.29</td><td>11.28</td><td>33.92</td><td>51.69</td><td>57.73</td><td>107.29</td><td>26.94</td><td>-6.22</td><td>5.74</td><td>26.13</td><td>50.51</td><td>14.95</td><td>18.90</td><td>1.99</td><td>22.13</td><td>13.60</td><td>2.70</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1285210">
+          
+            <td class="text">27.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/544324/" target="_blank">Citichem India</a>
+          </td>
+          <td>18.50</td><td>7.03</td><td>63.98</td><td>12.58</td><td>8.91</td><td>62.80</td><td>2.26</td><td>177.26</td><td>-11.51</td><td>-13.91</td><td>72.41</td><td>1.79</td><td>0.00</td><td>8.82</td><td>-37.20</td><td>-50.68</td><td>54.32</td><td>1.23</td><td>1.23</td><td>0.96</td><td>0.08</td><td>2.64</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1269">
+          
+            <td class="text">28.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/515147/consolidated/" target="_blank">Haldyn Glass</a>
+          </td>
+          <td>79.52</td><td>20.67</td><td>18.38</td><td>427.43</td><td>8.88</td><td>419.59</td><td>4.83</td><td>12.74</td><td>-9.54</td><td>21.50</td><td>15.70</td><td>20.68</td><td>-2.63</td><td>-8.26</td><td>-17.23</td><td>-44.72</td><td>48.58</td><td>29.56</td><td>1.01</td><td>250.70</td><td>44.64</td><td>2.63</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1284403">
+          
+            <td class="text">29.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/TRIDHYA/consolidated/" target="_blank">Tridhya Tech</a>
+          </td>
+          <td>13.60</td><td></td><td>21.54</td><td>31.67</td><td>-6.12</td><td>27.61</td><td>-8.04</td><td>-30.37</td><td>-185.49</td><td>37.86</td><td></td><td>-6.13</td><td>-6.21</td><td>-22.51</td><td>-18.32</td><td>-57.17</td><td>60.92</td><td>1.05</td><td>1.05</td><td>40.15</td><td>14.23</td><td>2.62</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="138">
+          
+            <td class="text">30.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/ALLDIGI/consolidated/" target="_blank">Alldigi Tech</a>
+          </td>
+          <td>901.75</td><td>18.02</td><td>33.26</td><td>1372.20</td><td>27.34</td><td>590.11</td><td>12.63</td><td>11.36</td><td>7.58</td><td>19.87</td><td>26.79</td><td>72.64</td><td>0.45</td><td>13.71</td><td>1.04</td><td>-3.66</td><td>17.28</td><td>100.19</td><td>1.28</td><td>120.87</td><td>55.91</td><td>2.61</td>
+        </tr>
+      
+        
+          <tr>
+            <th class="text" scope="colgroup">
+              
+                <a href="?order=asc" class="" aria-label="Default Sort">S.No.</a>
+              
+            </th>
+
+            <th class="text" scope="colgroup">
+              
+                <a href="?sort=name&amp;order=desc" class="" aria-label="Sort on Name">Name</a>
+              
+            </th>
+
+            
+              <th data-tooltip="Current Price" scope="colgroup">
+                
+                  <a href="?sort=current+price&amp;order=desc" class="" aria-label="Sort on Current Price">
+                    CMP
+                    <span style="color: hsl(0, 0%, 45%)">Rs.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Price to Earning" scope="colgroup">
+                
+                  <a href="?sort=price+to+earning&amp;order=desc" class="" aria-label="Sort on Price to Earning">
+                    P/E
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Industry PE" scope="colgroup">
+                
+                  <a href="?sort=industry+pe&amp;order=desc" class="" aria-label="Sort on Industry PE">
+                    Ind PE
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Market Capitalization" scope="colgroup">
+                
+                  <a href="?sort=market+capitalization&amp;order=desc" class="" aria-label="Sort on Market Capitalization">
+                    Mar Cap
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return on equity" scope="colgroup">
+                
+                  <a href="?sort=return+on+equity&amp;order=desc" class="" aria-label="Sort on Return on equity">
+                    ROE
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Sales" scope="colgroup">
+                
+                  <a href="?sort=sales&amp;order=desc" class="" aria-label="Sort on Sales">
+                    Sales
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="NPM last year" scope="colgroup">
+                
+                  <a href="?sort=npm+last+year&amp;order=desc" class="" aria-label="Sort on NPM last year">
+                    NPM Ann
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Sales growth" scope="colgroup">
+                
+                  <a href="?sort=sales+growth&amp;order=desc" class="" aria-label="Sort on Sales growth">
+                    Sales growth
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Profit growth" scope="colgroup">
+                
+                  <a href="?sort=profit+growth&amp;order=desc" class="" aria-label="Sort on Profit growth">
+                    Profit growth
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Sales growth 3Years" scope="colgroup">
+                
+                  <a href="?sort=sales+growth+3years&amp;order=desc" class="" aria-label="Sort on Sales growth 3Years">
+                    Sales Var 3Yrs
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Profit growth 3Years" scope="colgroup">
+                
+                  <a href="?sort=profit+growth+3years&amp;order=desc" class="" aria-label="Sort on Profit growth 3Years">
+                    Profit Var 3Yrs
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Net profit" scope="colgroup">
+                
+                  <a href="?sort=net+profit&amp;order=desc" class="" aria-label="Sort on Net profit">
+                    NP 12M
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 1day" scope="colgroup">
+                
+                  <a href="?sort=return+over+1day&amp;order=desc" class="" aria-label="Sort on Return over 1day">
+                    1day return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 1week" scope="colgroup">
+                
+                  <a href="?sort=return+over+1week&amp;order=desc" class="" aria-label="Sort on Return over 1week">
+                    1wk return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 3months" scope="colgroup">
+                
+                  <a href="?sort=return+over+3months&amp;order=desc" class="" aria-label="Sort on Return over 3months">
+                    3mth return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 1year" scope="colgroup">
+                
+                  <a href="?sort=return+over+1year&amp;order=desc" class="" aria-label="Sort on Return over 1year">
+                    1Yr return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Down from 52w high" scope="colgroup">
+                
+                  <a href="?sort=down+from+52w+high&amp;order=desc" class="" aria-label="Sort on Down from 52w high">
+                    Down
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Multibagger" scope="colgroup">
+                
+                  <a href="?sort=multibagger&amp;order=desc" class="" aria-label="Sort on Multibagger">
+                    Multi
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="52 Week multibagger" scope="colgroup">
+                
+                  <a href="?sort=52+week+multibagger&amp;order=desc" class="" aria-label="Sort on 52 Week multibagger">
+                    52LMulti
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Net block" scope="colgroup">
+                
+                  <a href="?sort=net+block&amp;order=desc" class="" aria-label="Sort on Net block">
+                    Net Block
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Net block 3Years back" scope="colgroup">
+                
+                  <a href="?sort=net+block+3years+back&amp;order=desc" class="" aria-label="Sort on Net block 3Years back">
+                    Net Block 3Yrs Back
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Average volume expansion" scope="colgroup">
+                
+                  <a href="?sort=average+volume+expansion&amp;order=desc" class="desc" aria-label="Sort on Average volume expansion">
+                    avgvolexp
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+          </tr>
+        
+
+        <tr data-row-company-id="1284887">
+          
+            <td class="text">31.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/AESTHETIK/consolidated/" target="_blank">Aesthetik Engi.</a>
+          </td>
+          <td>90.55</td><td>18.47</td><td>16.90</td><td>155.93</td><td>18.36</td><td>78.14</td><td>8.24</td><td>20.70</td><td>85.09</td><td></td><td></td><td>8.44</td><td>0.17</td><td>0.67</td><td>-19.22</td><td>43.73</td><td>41.81</td><td>1.51</td><td>1.51</td><td>17.99</td><td></td><td>2.53</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1274982">
+          
+            <td class="text">32.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/543378/consolidated/" target="_blank">CWD</a>
+          </td>
+          <td>280.15</td><td>73.03</td><td>24.61</td><td>622.19</td><td>5.78</td><td>67.49</td><td>7.63</td><td>201.56</td><td>365.57</td><td>29.87</td><td>-6.80</td><td>8.52</td><td>-8.15</td><td>-23.77</td><td>-14.33</td><td>45.52</td><td>34.08</td><td>7.78</td><td>1.73</td><td>29.63</td><td>11.08</td><td>2.52</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="3570">
+          
+            <td class="text">33.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/531390/" target="_blank">Upsurge Invest.</a>
+          </td>
+          <td>65.01</td><td>12.21</td><td>18.91</td><td>130.48</td><td>20.45</td><td>99.66</td><td>13.78</td><td>3.54</td><td>-44.06</td><td>43.67</td><td>18.65</td><td>10.69</td><td>-5.12</td><td>-3.14</td><td>-27.79</td><td>-51.72</td><td>56.19</td><td>16.13</td><td>1.06</td><td>0.14</td><td>0.24</td><td>2.51</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="2196">
+          
+            <td class="text">34.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/519455/" target="_blank">Narbada Gems</a>
+          </td>
+          <td>58.00</td><td>16.17</td><td>24.34</td><td>122.71</td><td>9.27</td><td>90.37</td><td>5.66</td><td>9.22</td><td>64.64</td><td>12.09</td><td>12.97</td><td>7.59</td><td>2.20</td><td>-0.34</td><td>-16.82</td><td>-5.95</td><td>24.68</td><td>26.61</td><td>1.21</td><td>4.11</td><td>1.18</td><td>2.50</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1284371">
+          
+            <td class="text">35.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/543920/" target="_blank">CFF Fluid</a>
+          </td>
+          <td>551.95</td><td>40.02</td><td>56.22</td><td>1157.67</td><td>17.42</td><td>169.66</td><td>16.38</td><td>33.13</td><td>37.50</td><td>45.77</td><td>45.27</td><td>28.93</td><td>1.02</td><td>1.82</td><td>-17.64</td><td>-8.45</td><td>24.23</td><td>3.35</td><td>1.41</td><td>33.60</td><td>8.13</td><td>2.47</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1274118">
+          
+            <td class="text">36.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/WEWIN/" target="_blank">We Win Ltd</a>
+          </td>
+          <td>44.57</td><td>13.80</td><td>33.26</td><td>43.89</td><td>6.04</td><td>80.66</td><td>2.10</td><td>7.09</td><td>25.20</td><td>23.56</td><td>-7.72</td><td>3.18</td><td>1.53</td><td>4.04</td><td>-14.58</td><td>-41.53</td><td>46.49</td><td>4.18</td><td>1.19</td><td>11.18</td><td>2.06</td><td>2.45</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1284516">
+          
+            <td class="text">37.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/544001/" target="_blank">Sunita Tools Ltd</a>
+          </td>
+          <td>635.85</td><td>84.61</td><td>29.18</td><td>399.35</td><td>13.33</td><td>29.55</td><td>16.41</td><td>-10.10</td><td>-29.13</td><td>50.26</td><td>81.71</td><td>4.72</td><td>-1.83</td><td>11.59</td><td>-22.96</td><td>-30.09</td><td>40.23</td><td>5.46</td><td>1.15</td><td>9.63</td><td>2.24</td><td>2.42</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1273511">
+          
+            <td class="text">38.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/CROWN/" target="_blank">Crown Lifters</a>
+          </td>
+          <td>110.80</td><td>11.47</td><td>29.18</td><td>124.36</td><td>19.96</td><td>39.44</td><td>27.89</td><td>19.59</td><td>51.19</td><td>20.70</td><td>160.89</td><td>10.90</td><td>-3.29</td><td>-1.53</td><td>-24.38</td><td>-42.46</td><td>50.05</td><td>18.53</td><td>1.02</td><td>128.89</td><td>13.45</td><td>2.32</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1274060">
+          
+            <td class="text">39.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/SIKKO/" target="_blank">Sikko Industries</a>
+          </td>
+          <td>4.54</td><td>36.39</td><td>27.68</td><td>198.31</td><td>7.76</td><td>67.85</td><td>6.92</td><td>14.90</td><td>-6.20</td><td>6.67</td><td>31.14</td><td>5.45</td><td>8.87</td><td>9.93</td><td>-14.02</td><td>-3.40</td><td>33.53</td><td>15.13</td><td>1.49</td><td>13.09</td><td>3.28</td><td>2.32</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1284372">
+          
+            <td class="text">40.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/543921/" target="_blank">Comrade Applian.</a>
+          </td>
+          <td>47.40</td><td></td><td>24.61</td><td>36.87</td><td>2.68</td><td>55.35</td><td>0.92</td><td>54.35</td><td>-464.57</td><td>24.72</td><td>49.07</td><td>-4.63</td><td>4.87</td><td>-4.24</td><td>-46.14</td><td>-59.28</td><td>62.54</td><td>1.06</td><td>1.06</td><td>22.41</td><td>5.59</td><td>2.31</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1284717">
+          
+            <td class="text">41.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/AVPINFRA/" target="_blank">AVP Infracon</a>
+          </td>
+          <td>88.65</td><td>5.09</td><td>16.90</td><td>221.44</td><td>30.20</td><td>369.67</td><td>12.15</td><td>101.19</td><td>82.97</td><td>62.16</td><td>102.43</td><td>43.51</td><td>-1.99</td><td>-9.54</td><td>-44.40</td><td>-56.22</td><td>60.33</td><td>1.41</td><td>1.07</td><td>55.51</td><td>15.03</td><td>2.24</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1274575">
+          
+            <td class="text">42.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/PARIN/consolidated/" target="_blank">Parin Enterpris.</a>
+          </td>
+          <td>628.95</td><td>83.36</td><td>31.67</td><td>699.27</td><td>11.37</td><td>239.23</td><td>4.53</td><td>237.70</td><td>343.86</td><td>29.88</td><td>18.86</td><td>8.82</td><td>1.54</td><td>4.04</td><td>17.34</td><td>74.71</td><td>4.99</td><td>15.40</td><td>2.02</td><td>29.39</td><td>11.09</td><td>2.21</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1285620">
+          
+            <td class="text">43.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/544494/consolidated/" target="_blank">Globtier Infotec</a>
+          </td>
+          <td>25.72</td><td>6.46</td><td>25.71</td><td>38.89</td><td>31.73</td><td>95.50</td><td>5.83</td><td>7.04</td><td>47.06</td><td>11.06</td><td>66.57</td><td>5.91</td><td>-0.12</td><td>-2.02</td><td>-16.28</td><td></td><td>55.35</td><td>1.03</td><td>1.03</td><td>8.33</td><td>0.85</td><td>2.19</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1285461">
+          
+            <td class="text">44.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/BORANA/" target="_blank">Borana Weaves</a>
+          </td>
+          <td>389.55</td><td>17.60</td><td>17.60</td><td>1026.61</td><td>60.33</td><td>366.56</td><td>14.05</td><td>34.37</td><td>47.04</td><td>89.99</td><td>183.01</td><td>58.30</td><td>1.39</td><td>18.51</td><td>70.40</td><td></td><td>4.49</td><td>1.85</td><td>1.85</td><td>116.01</td><td>15.84</td><td>2.18</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1285665">
+          
+            <td class="text">45.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/GKENERGY/" target="_blank">GK Energy</a>
+          </td>
+          <td>100.94</td><td>14.03</td><td>16.90</td><td>2041.47</td><td>100.52</td><td>1094.83</td><td>12.17</td><td>166.32</td><td>269.13</td><td>149.56</td><td>340.37</td><td>133.22</td><td>-5.00</td><td>-14.61</td><td>-53.17</td><td></td><td>57.87</td><td>1.00</td><td>1.00</td><td>85.31</td><td>6.30</td><td>2.18</td>
+        </tr>
+      
+        
+          <tr>
+            <th class="text" scope="colgroup">
+              
+                <a href="?order=asc" class="" aria-label="Default Sort">S.No.</a>
+              
+            </th>
+
+            <th class="text" scope="colgroup">
+              
+                <a href="?sort=name&amp;order=desc" class="" aria-label="Sort on Name">Name</a>
+              
+            </th>
+
+            
+              <th data-tooltip="Current Price" scope="colgroup">
+                
+                  <a href="?sort=current+price&amp;order=desc" class="" aria-label="Sort on Current Price">
+                    CMP
+                    <span style="color: hsl(0, 0%, 45%)">Rs.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Price to Earning" scope="colgroup">
+                
+                  <a href="?sort=price+to+earning&amp;order=desc" class="" aria-label="Sort on Price to Earning">
+                    P/E
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Industry PE" scope="colgroup">
+                
+                  <a href="?sort=industry+pe&amp;order=desc" class="" aria-label="Sort on Industry PE">
+                    Ind PE
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Market Capitalization" scope="colgroup">
+                
+                  <a href="?sort=market+capitalization&amp;order=desc" class="" aria-label="Sort on Market Capitalization">
+                    Mar Cap
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return on equity" scope="colgroup">
+                
+                  <a href="?sort=return+on+equity&amp;order=desc" class="" aria-label="Sort on Return on equity">
+                    ROE
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Sales" scope="colgroup">
+                
+                  <a href="?sort=sales&amp;order=desc" class="" aria-label="Sort on Sales">
+                    Sales
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="NPM last year" scope="colgroup">
+                
+                  <a href="?sort=npm+last+year&amp;order=desc" class="" aria-label="Sort on NPM last year">
+                    NPM Ann
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Sales growth" scope="colgroup">
+                
+                  <a href="?sort=sales+growth&amp;order=desc" class="" aria-label="Sort on Sales growth">
+                    Sales growth
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Profit growth" scope="colgroup">
+                
+                  <a href="?sort=profit+growth&amp;order=desc" class="" aria-label="Sort on Profit growth">
+                    Profit growth
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Sales growth 3Years" scope="colgroup">
+                
+                  <a href="?sort=sales+growth+3years&amp;order=desc" class="" aria-label="Sort on Sales growth 3Years">
+                    Sales Var 3Yrs
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Profit growth 3Years" scope="colgroup">
+                
+                  <a href="?sort=profit+growth+3years&amp;order=desc" class="" aria-label="Sort on Profit growth 3Years">
+                    Profit Var 3Yrs
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Net profit" scope="colgroup">
+                
+                  <a href="?sort=net+profit&amp;order=desc" class="" aria-label="Sort on Net profit">
+                    NP 12M
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 1day" scope="colgroup">
+                
+                  <a href="?sort=return+over+1day&amp;order=desc" class="" aria-label="Sort on Return over 1day">
+                    1day return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 1week" scope="colgroup">
+                
+                  <a href="?sort=return+over+1week&amp;order=desc" class="" aria-label="Sort on Return over 1week">
+                    1wk return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 3months" scope="colgroup">
+                
+                  <a href="?sort=return+over+3months&amp;order=desc" class="" aria-label="Sort on Return over 3months">
+                    3mth return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Return over 1year" scope="colgroup">
+                
+                  <a href="?sort=return+over+1year&amp;order=desc" class="" aria-label="Sort on Return over 1year">
+                    1Yr return
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Down from 52w high" scope="colgroup">
+                
+                  <a href="?sort=down+from+52w+high&amp;order=desc" class="" aria-label="Sort on Down from 52w high">
+                    Down
+                    <span style="color: hsl(0, 0%, 45%)">%</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Multibagger" scope="colgroup">
+                
+                  <a href="?sort=multibagger&amp;order=desc" class="" aria-label="Sort on Multibagger">
+                    Multi
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="52 Week multibagger" scope="colgroup">
+                
+                  <a href="?sort=52+week+multibagger&amp;order=desc" class="" aria-label="Sort on 52 Week multibagger">
+                    52LMulti
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Net block" scope="colgroup">
+                
+                  <a href="?sort=net+block&amp;order=desc" class="" aria-label="Sort on Net block">
+                    Net Block
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Net block 3Years back" scope="colgroup">
+                
+                  <a href="?sort=net+block+3years+back&amp;order=desc" class="" aria-label="Sort on Net block 3Years back">
+                    Net Block 3Yrs Back
+                    <span style="color: hsl(0, 0%, 45%)">Rs.Cr.</span>
+                  </a>
+                
+              </th>
+            
+              <th data-tooltip="Average volume expansion" scope="colgroup">
+                
+                  <a href="?sort=average+volume+expansion&amp;order=desc" class="desc" aria-label="Sort on Average volume expansion">
+                    avgvolexp
+                    <span style="color: hsl(0, 0%, 45%)"></span>
+                  </a>
+                
+              </th>
+            
+          </tr>
+        
+
+        <tr data-row-company-id="3672">
+          
+            <td class="text">46.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/514302/" target="_blank">Vippy Spinpro</a>
+          </td>
+          <td>146.05</td><td>6.56</td><td>17.60</td><td>85.73</td><td>13.95</td><td>263.95</td><td>4.08</td><td>0.42</td><td>49.09</td><td>26.08</td><td>-1.70</td><td>13.06</td><td>-4.57</td><td>-6.32</td><td>-15.55</td><td>-17.49</td><td>27.82</td><td>47.73</td><td>1.04</td><td>49.13</td><td>9.71</td><td>2.17</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1284309">
+          
+            <td class="text">47.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/SRIVASAVI/" target="_blank">Srivasavi Adhes.</a>
+          </td>
+          <td>44.50</td><td>11.47</td><td>24.19</td><td>63.08</td><td>17.90</td><td>102.58</td><td>7.40</td><td>32.52</td><td>-17.91</td><td>12.43</td><td>22.71</td><td>5.50</td><td>11.25</td><td>-4.71</td><td>-23.93</td><td>-50.56</td><td>49.94</td><td>1.25</td><td>1.14</td><td>22.97</td><td>6.42</td><td>2.15</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1273534">
+          
+            <td class="text">48.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/GRETEX/" target="_blank">Gretex Industrie</a>
+          </td>
+          <td>206.00</td><td>116.15</td><td>34.89</td><td>319.42</td><td>6.55</td><td>47.24</td><td>4.86</td><td>5.75</td><td>-84.08</td><td>36.09</td><td>43.63</td><td>2.75</td><td>4.57</td><td>4.57</td><td>8.42</td><td>-5.94</td><td>21.79</td><td>39.62</td><td>1.14</td><td>1.80</td><td>0.05</td><td>2.14</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1275184">
+          
+            <td class="text">49.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/SWARAJ/consolidated/" target="_blank">Swaraj Suiting</a>
+          </td>
+          <td>268.65</td><td>14.30</td><td>17.60</td><td>591.52</td><td>25.65</td><td>459.23</td><td>8.02</td><td>35.77</td><td>82.97</td><td>47.87</td><td>94.10</td><td>41.37</td><td>-2.26</td><td>12.24</td><td>37.66</td><td>59.01</td><td>6.54</td><td>13.35</td><td>1.94</td><td>296.55</td><td>36.76</td><td>2.11</td>
+        </tr>
+      
+        
+
+        <tr data-row-company-id="1275295">
+          
+            <td class="text">50.</td>
+          
+
+          
+
+          <td class="text">
+            <a href="/company/543598/" target="_blank">Shantidoot Infra</a>
+          </td>
+          <td>160.00</td><td>5.69</td><td>30.16</td><td>28.77</td><td>65.11</td><td>30.19</td><td>17.59</td><td>201.90</td><td>328.23</td><td>58.24</td><td>55.95</td><td>5.31</td><td>-0.65</td><td>-3.67</td><td>-52.75</td><td>-44.96</td><td>54.99</td><td>2.26</td><td>1.05</td><td>6.47</td><td>0.80</td><td>2.10</td>
+        </tr>
+      
+    </tbody>
+    
+  </table>
+</div>
+
+
+  <div data-paging="true">
+
+
+
+<div class="pagination"><div class="flex-baseline options"><a href="#" class="active">1</a><a href="?page=2" class="ink-900">2</a><a href="?page=3" class="ink-900">3</a><a href="?page=4" class="ink-900">4</a><button disabled="disabled">…</button><a href="?page=16" class="ink-900">16</a><a href="?page=17" class="ink-900">17</a><a href="?page=2">
+            Next <i class="icon-right"></i></a></div><div class="flex flex-baseline flex-gap-16"><span class="font-size-14 font-weight-500 sub">Results per page</span><div class="options"><a class="" href="?limit=10&amp;page=1">10</a><a class="" href="?limit=25&amp;page=1">25</a><a class="active" href="?limit=50&amp;page=1">50</a></div></div></div>
+</div>
+
+
+
+
+
+
+<form method="get" action="/screen/raw/">
+
+  
+  <h3>Search Query</h3>
+  <p>You can customize the query below:</p>
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="hidden" name="sort" value="average volume expansion" id="id_sort"><input type="hidden" name="order" id="id_order"><input type="hidden" name="source_id" value="1374269" id="id_source_id">
+
+
+  <div class="form-field">
+    
+
+      <label for="query-builder">
+        Query
+        
+        
+      </label>
+      
+      <div class="flex-row flex-space-between flex-gap-16" style="margin-bottom: 16px; margin-top: 0;">
+  <div style="flex-grow: 4; flex-shrink: 1; min-width: 25rem; max-width: 100%" class="dropdown-typeahead">
+    <textarea name="query" cols="30" rows="8" id="query-builder" spellcheck="false" class="u-full-width" maxlength="1500" required="" style="margin-bottom: 0px;">(
+(Sales growth 3Years &gt; 12% AND
+Net block &gt; Net block 3Years back * 2)
+
+OR
+
+(Net block + Capital work in progress ) &gt; 1.5 * (Net block preceding year + Capital work in progress preceding year )
+)
+
+AND
+
+Sales last year  &gt; 25 AND
+Debt to equity &lt; 3 AND
+Market Capitalization &lt; 5000 AND
+Promoter holding &gt; 50%</textarea>
+  <ul class="dropdown-content"></ul></div>
+
+  <div class="callout success query-help">
+    <p class="bigger margin-bottom-0" id="query-help-name">Custom query example</p>
+    <p id="query-help-description" style="white-space: pre-line">Market capitalization &gt; 500 AND
+      Price to earning &lt; 15 AND
+      Return on capital employed &gt; 22%</p>
+    <div class="sub" id="query-help-detail">
+      <a href="/guides/creating-screens/">
+        Detailed guide on creating screens
+      </a>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn-static.screener.in/js/query.builder.9dff65fa7ac8.js"></script>
+
+    
+  </div>
+
+  <div class="form-field">
+    
+      
+      <label>
+        <input type="checkbox" name="latest" aria-describedby="id_latest_helptext" id="id_latest">
+        <span>
+          
+            Only companies with Dec 2025 results
+          
+        </span>
+      </label>
+    
+  </div>
+
+
+
+
+
+  <div class="flex-row flex-space-between flex-gap-16">
+    <button type="submit" class="button-primary">
+      <i class="icon-play"></i>
+      Run this Query
+    </button>
+
+    <button id="show-ratio-gallery" type="button" onclick="RatioGallery.loadGallery(this)">
+      <i class="icon-beaker"></i>
+      Show all Ratios
+    </button>
+  </div>
+</form>
+
+<div id="ratio-gallery"></div>
+<script src="https://cdn-static.screener.in/js/ratio.gallery.240f93285e46.js"></script>
+
+
+          </div>
+        
+      </main>
+    
+
+    
+      
+
+<footer id="large-footer">
+  <div class="flex-row flex-space-between flex-column-tablet container no-print">
+    <div class="hide-from-tablet" style="margin-bottom: 16px;">
+      <img src="https://cdn-static.screener.in/img/logo-black.f44abb4998d1.svg" alt="Screener Logo" style="max-width: 120px" class="logo">
+    </div>
+
+    <div class="show-from-tablet" style="padding: 0 64px 0 0;">
+      <img src="https://cdn-static.screener.in/img/logo-black.f44abb4998d1.svg" alt="Screener Logo" style="max-width: 120px" class="logo">
+      <p class="font-size-19" style="font-weight: 500;">Stock analysis and screening tool</p>
+      <p class="sub">
+        Mittal Analytics Private Ltd © 2009-2025
+        <br>
+        Made with <i class="icon-heart red"></i> in India.
+      </p>
+      <p class="sub font-size-13">Data provided by C-MOTS Internet Technologies Pvt Ltd</p>
+      <p class="font-size-13 sub">
+        <a href="/guides/terms/" class="underline-link">Terms</a> &amp; <a href="/guides/privacy/" class="underline-link">Privacy</a>.
+      </p>
+    </div>
+
+    <div class="flex flex-end flex-space-between flex-grow" style="max-width: 600px">
+      <div class="flex-grow">
+        <div class="title">Product</div>
+        <ul class="items">
+          <li>
+            <a href="/premium/?driver=footer">Premium</a>
+          </li>
+          <li>
+            <a href="/docs/changelog/">What's new?</a>
+          </li>
+          <li>
+            <a href="https://bit.ly/learnscreener">Learn</a>
+          </li>
+          <li>
+            <button class="a2hs button-secondary button-small">
+              <i class="icon-flash"></i>
+              Install
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="flex-grow">
+        <div class="title">Team</div>
+        <ul class="items">
+          <li>
+            <a href="/guides/about-us/">About us</a>
+          </li>
+          <li>
+            <a href="/support/">Support</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="flex-grow">
+        <div class="title">Theme</div>
+        <ul class="items">
+          <li>
+            <button onclick="SetTheme('light')" aria-label="Set light theme" class="button-plain">
+              <i class="icon-sun"></i>
+              Light
+            </button>
+          </li>
+          <li>
+            <button onclick="SetTheme('dark')" aria-label="Set dark theme" class="button-plain">
+              <i class="icon-moon"></i>
+              Dark
+            </button>
+          </li>
+          <li>
+            <button onclick="SetTheme('auto')" aria-label="Set auto theme" class="button-plain">
+              <i class="icon-monitor"></i>
+              Auto
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="hide-from-tablet">
+      <hr>
+      <p class="sub">Mittal Analytics Private Ltd © 2009-2024</p>
+      <p class="sub">Data provided by C-MOTS Internet Technologies Pvt Ltd</p>
+      <p class="sub">
+        <a href="/guides/terms/" class="underline-link">Terms</a>
+        &amp; <a href="/guides/privacy/" class="underline-link">Privacy</a>.
+      </p>
+    </div>
+  </div>
+</footer>
+
+    
+
+    <!-- Important JS (which provide global objects)- check below too -->
+    <script src="https://cdn-static.screener.in/js/dialog-polyfill.min.2b5bf9a032d2.js"></script>
+    <script src="https://cdn-static.screener.in/js/utils.3c03d31f3c68.js"></script>
+    <script src="https://cdn-static.screener.in/js/modal.21ed0c316ebf.js"></script>
+    <script src="https://cdn-static.screener.in/js/typeahead.8dcc9ac93685.js"></script>
+    <script src="https://cdn-static.screener.in/js/filter.component.888b0801c31d.js"></script>
+
+    <!-- Independent JS scripts for page interactions -->
+    <script src="https://cdn-static.screener.in/js/navbar.3fe7f0f4a630.js"></script>
+    <script src="https://cdn-static.screener.in/js/company.search.e48f94642999.js"></script>
+    
+    
+
+    <!-- Service worker installer for PWA -->
+    <script src="https://cdn-static.screener.in/js/pwa.bb2d31cc8b94.js"></script>
+  
+
+</body></html>

@@ -220,12 +220,36 @@ export class Sidebar {
                 <input type="text" id="add-input" placeholder="Symbol (e.g. TATA)" style="flex:1; padding:6px; border-radius:4px; border:1px solid var(--et-border, #e0e0e0); background:var(--et-bg, #ffffff); color:var(--et-fg, #333333);">
                 <button class="btn-primary" id="btn-add">Add</button>
             </div>
+        `;
+
+    // Domain-specific Scan Buttons
+    const hostname = window.location.hostname;
+    const isZerodha = hostname.includes('zerodha.com');
+    const isScreener = hostname.includes('screener.in');
+    
+    if (isZerodha) {
+        actions.innerHTML += `
             <div style="display:flex; gap:5px;">
-                <button class="icon-btn" style="flex:1; border:1px solid var(--et-border, #e0e0e0);" id="btn-scan-page">Scan Page</button>
-                <button class="icon-btn" style="flex:1; border:1px solid var(--et-border, #e0e0e0);" id="btn-scan-all">Scan All (50)</button>
+                <button class="icon-btn" style="flex:1; border:1px solid var(--et-border, #e0e0e0);" id="btn-scan-page">Scan Holdings</button>
             </div>
             <div id="scan-msg" class="status-msg"></div>
         `;
+    } else if (isScreener) {
+        // Calculate max pages (sync check on current doc)
+        const totalPages = Scanner.getTotalPages(document);
+        const scanAllText = totalPages > 1 ? `Scan All (${totalPages})` : `Scan All`;
+        
+        actions.innerHTML += `
+            <div style="display:flex; gap:5px;">
+                <button class="icon-btn" style="flex:1; border:1px solid var(--et-border, #e0e0e0);" id="btn-scan-page">Scan Page</button>
+                <button class="icon-btn" style="flex:1; border:1px solid var(--et-border, #e0e0e0);" id="btn-scan-all">${scanAllText}</button>
+            </div>
+            <div id="scan-msg" class="status-msg"></div>
+        `;
+    } else {
+        // TradingView or others: No scan buttons
+        actions.innerHTML += `<div id="scan-msg" class="status-msg"></div>`;
+    }
 
     const addFn = async () => {
       const val = actions.querySelector('#add-input').value.toUpperCase().trim();
@@ -263,8 +287,11 @@ export class Sidebar {
       }, 100);
     };
 
-    actions.querySelector('#btn-scan-page').onclick = () => handleScan(false);
-    actions.querySelector('#btn-scan-all').onclick = () => handleScan(true);
+    const btnScanPage = actions.querySelector('#btn-scan-page');
+    if (btnScanPage) btnScanPage.onclick = () => handleScan(false);
+    
+    const btnScanAll = actions.querySelector('#btn-scan-all');
+    if (btnScanAll) btnScanAll.onclick = () => handleScan(true);
 
     area.appendChild(actions);
 

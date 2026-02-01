@@ -12,6 +12,28 @@ export const Scanner = {
     return parser.parseFromString(text, 'text/html');
   },
 
+  getTotalPages(doc) {
+    if (!window.location.hostname.includes('screener.in')) return 1;
+    
+    // Strategy 1: data-page-info (Exact)
+    const info = doc.querySelector("div[data-page-info]");
+    if (info) {
+      const match = info.innerText.match(/of\s+(\d+)/i);
+      if (match) return parseInt(match[1], 10);
+    }
+
+    // Strategy 2: Pagination links (Fallback)
+    const pagination = doc.querySelectorAll("div.pagination a");
+    if (pagination.length > 0) {
+       const nums = Array.from(pagination)
+         .map(a => parseInt(a.innerText))
+         .filter(n => !isNaN(n));
+       if (nums.length > 0) return Math.max(...nums);
+    }
+    
+    return 1;
+  },
+
 
 
   async scanPage(doc) {
