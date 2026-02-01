@@ -320,11 +320,11 @@ export class Sidebar {
             window.location.href = url;
         }
       };
-      row.querySelector(`#scr-${item.ticker}`).onclick = (e) => {
+      row.querySelector(`[id="scr-${item.ticker}"]`).onclick = (e) => {
         e.stopPropagation();
         window.open(`https://www.screener.in/company/${item.ticker}/`, '_blank');
       };
-      row.querySelector(`#tv-${item.ticker}`).onclick = async (e) => {
+      row.querySelector(`[id="tv-${item.ticker}"]`).onclick = async (e) => {
         e.stopPropagation();
         let ticker = item.ticker;
         if (item.exchange === 'BSE' && /^\d+$/.test(ticker)) {
@@ -333,7 +333,7 @@ export class Sidebar {
         }
         window.open(`https://in.tradingview.com/chart/?symbol=${item.exchange}:${ticker}`, '_blank');
       };
-      row.querySelector(`#del-${item.ticker}`).onclick = () => { Store.removeSymbol(item.ticker); this.renderContent(); };
+      row.querySelector(`[id="del-${item.ticker}"]`).onclick = () => { Store.removeSymbol(item.ticker); this.renderContent(); };
 
       listContainer.appendChild(row);
     });

@@ -51,6 +51,8 @@
 - **BSE Resolver:** Resolves numeric BSE codes to symbols via background fetch if needed.
 
 ## Recent Changes
+- **v3.7.1 (Bug Fix - Feb 01):**
+  - **Special Character Support:** Fixed sidebar crash when rendering watchlists containing symbols with special characters (e.g. `&`), using robust attribute selectors.
 - **v3.7 (Watchlist Actions):**
   - **Screener Icon:** Added 'S' icon to watchlist items to quickly open the stock's Screener.in page (especially useful when browsing on TradingView).
 - **v3.6 (BSE & Logging):**
