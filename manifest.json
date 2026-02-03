@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "EvenTrade - Screener.in Assistant",
+  "name": "EvenTrade - Super Watchlist for stocks Zerodha, Trading View & Screener",
   "version": "3.7",
-  "description": "Advanced Sidebar and Table Tools for Screener.in",
+  "description": "Advanced Sidebar Single Watchlist for all the platforms.",
   "permissions": [
     "storage"
   ],
