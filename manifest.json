@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "EvenTrade - Super Watchlist for stocks Zerodha, Trading View & Screener",
+  "name": "Watchlist for stocks Zerodha, Trading View & Screener by Eventrade",
   "version": "3.7",
-  "description": "Supercharge your stock research. Track, scan & analyze stocks across Screener, TradingView & Zerodha with one sidebar.",
+  "description": "Stocks Watchlist Unified - a single watchlist that works across Screener, TradingView & Zerodha. Save time switching between platforms.",
   "permissions": [
     "storage",
     "scripting"

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>EvenTrade - Supported Sites</title>
+    <style>
+      :root {
+        --et-bg: #ffffff;
+        --et-fg: #1a1a1a;
+        --et-border: #e0e0e0;
+        --et-accent: #2962ff;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: -apple-system, system-ui, sans-serif;
+        background: var(--et-bg);
+        color: var(--et-fg);
+      }
+
+      .wrap {
+        padding: 16px;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+
+      .card {
+        border: 1px solid var(--et-border);
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: 18px;
+      }
+
+      p {
+        margin: 8px 0;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      ul {
+        margin: 10px 0 16px 18px;
+        padding: 0;
+        font-size: 13px;
+      }
+
+      li { margin: 6px 0; }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 8px;
+        background: var(--et-accent);
+        color: #fff;
+        text-decoration: none;
+        font-size: 12px;
+      }
+
+      .muted {
+        color: #666;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="card">
+        <h1>Site not supported</h1>
+        <p>EvenTrade only runs on the sites below. Open one of them and click the extension icon again.</p>
+        <ul>
+          <li>Screener.in (www.screener.in)</li>
+          <li>TradingView (in.tradingview.com or www.tradingview.com)</li>
+          <li>Kite by Zerodha (kite.zerodha.com)</li>
+        </ul>
+        <div class="links">
+          <a class="button" href="https://www.screener.in/" target="_blank" rel="noopener noreferrer">Open Screener.in</a>
+          <a class="button" href="https://in.tradingview.com/" target="_blank" rel="noopener noreferrer">Open TradingView</a>
+          <a class="button" href="https://kite.zerodha.com/" target="_blank" rel="noopener noreferrer">Open Kite</a>
+        </div>
+        <p class="muted">If you want support for more sites, share them and I will add them.</p>
+      </div>
+    </div>
+  </body>
+</html>

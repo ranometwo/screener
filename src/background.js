@@ -1,10 +1,47 @@
-async function ensureSidebarToggle(tab) {
-    if (!tab?.id || !tab?.url) return;
-    const isSupported = tab.url.includes("screener.in")
-        || tab.url.includes("tradingview.com")
-        || tab.url.includes("kite.zerodha.com");
+const ACTION_TITLE = "Toggle EvenTrade Sidebar";
+const SUPPORTED_HOSTS = ["screener.in", "tradingview.com", "kite.zerodha.com"];
+const SUPPORTED_SITES = [
+    { name: "Screener.in", url: "https://www.screener.in/" },
+    { name: "TradingView", url: "https://in.tradingview.com/" },
+    { name: "Kite (Zerodha)", url: "https://kite.zerodha.com/" }
+];
+const UNSUPPORTED_TITLE = `EvenTrade works on: ${SUPPORTED_SITES.map(site => site.name).join(", ")}.`;
+const UNSUPPORTED_NOTICE_COOLDOWN_MS = 8000;
+const unsupportedNoticeByTab = new Map();
 
-    if (!isSupported) return;
+function clearUnsupportedBadge(tabId) {
+    chrome.action.setBadgeText({ tabId, text: "" });
+    chrome.action.setTitle({ tabId, title: ACTION_TITLE });
+}
+
+function showUnsupportedSiteMessage(tab) {
+    const tabId = tab?.id;
+    if (!tabId) return;
+
+    chrome.action.setBadgeText({ tabId, text: "!" });
+    chrome.action.setBadgeBackgroundColor({ tabId, color: "#d32f2f" });
+    chrome.action.setTitle({ tabId, title: UNSUPPORTED_TITLE });
+
+    const lastShownAt = unsupportedNoticeByTab.get(tabId) || 0;
+    const now = Date.now();
+    if (now - lastShownAt < UNSUPPORTED_NOTICE_COOLDOWN_MS) return;
+
+    unsupportedNoticeByTab.set(tabId, now);
+    chrome.tabs.create({ url: chrome.runtime.getURL("unsupported.html") });
+}
+
+async function ensureSidebarToggle(tab) {
+    if (!tab?.id) return;
+
+    const url = tab?.url || "";
+    const isSupported = SUPPORTED_HOSTS.some(host => url.includes(host));
+
+    if (!isSupported) {
+        showUnsupportedSiteMessage(tab);
+        return;
+    }
+
+    clearUnsupportedBadge(tab.id);
 
     try {
         await chrome.tabs.sendMessage(tab.id, { action: "toggle_sidebar" });
