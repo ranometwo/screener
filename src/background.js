@@ -1,7 +1,38 @@
-chrome.action.onClicked.addListener((tab) => {
-    if (tab.url.includes("screener.in") || tab.url.includes("tradingview.com")) {
-        chrome.tabs.sendMessage(tab.id, { action: "toggle_sidebar" });
+async function ensureSidebarToggle(tab) {
+    if (!tab?.id || !tab?.url) return;
+    const isSupported = tab.url.includes("screener.in")
+        || tab.url.includes("tradingview.com")
+        || tab.url.includes("kite.zerodha.com");
+
+    if (!isSupported) return;
+
+    try {
+        await chrome.tabs.sendMessage(tab.id, { action: "toggle_sidebar" });
+        return;
+    } catch (error) {
+        const message = error?.message || String(error);
+        // If the content script isn't ready/injected yet, inject and retry once.
+        if (message.includes("Receiving end does not exist")) {
+            try {
+                await chrome.scripting.executeScript({
+                    target: { tabId: tab.id },
+                    files: ["src/loader.js"]
+                });
+                // Give the loader a moment to register its listeners.
+                await new Promise(resolve => setTimeout(resolve, 50));
+                await chrome.tabs.sendMessage(tab.id, { action: "toggle_sidebar" });
+            } catch (retryError) {
+                console.warn("[EvenTrade] Failed to inject/toggle sidebar:", retryError);
+            }
+        } else {
+            console.warn("[EvenTrade] Failed to toggle sidebar:", error);
+        }
     }
+}
+
+chrome.action.onClicked.addListener((tab) => {
+    // Fire and forget; errors are handled inside.
+    ensureSidebarToggle(tab);
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {

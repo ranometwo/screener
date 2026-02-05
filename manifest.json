@@ -4,7 +4,8 @@
   "version": "3.7",
   "description": "Supercharge your stock research. Track, scan & analyze stocks across Screener, TradingView & Zerodha with one sidebar.",
   "permissions": [
-    "storage"
+    "storage",
+    "scripting"
   ],
   "host_permissions": [
     "https://www.screener.in/*",
