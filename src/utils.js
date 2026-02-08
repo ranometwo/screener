@@ -136,5 +136,34 @@ export const Utils = {
         Logger.error("Error fetching exchange data:", error);
         return null;
     }
+  },
+
+  async searchSymbols(query) {
+    if (!query) return [];
+    
+    // Use TradingView symbol search, omitting the exchange parameter to get global results
+    const url = `https://symbol-search.tradingview.com/symbol_search/?text=${encodeURIComponent(query)}&hl=0&lang=en&type=stock`;
+
+    try {
+        const result = await new Promise((resolve) => {
+            chrome.runtime.sendMessage({ action: 'FETCH_PAGE', url }, resolve);
+        });
+
+        if (!result || !result.success) {
+            Logger.warn(`[Search] Fetch failed for ${query}:`, result?.error || 'Unknown error');
+            return [];
+        }
+
+        const data = JSON.parse(result.data.text);
+        
+        return data.map(item => ({
+            symbol: item.symbol,
+            name: item.description,
+            exchange: item.exchange === 'NSI' ? 'NSE' : item.exchange
+        }));
+    } catch (error) {
+        Logger.error("Error searching symbols:", error);
+        return [];
+    }
   }
 };

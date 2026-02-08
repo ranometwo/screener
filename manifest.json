@@ -4,15 +4,24 @@
   "version": "3.7",
   "description": "Advanced Sidebar and Table Tools for Screener.in",
   "permissions": [
-    "storage"
+    "storage",
+    "declarativeNetRequest"
   ],
   "host_permissions": [
     "https://www.screener.in/*",
     "https://in.tradingview.com/*",
     "https://www.tradingview.com/*",
     "https://kite.zerodha.com/*",
-    "https://query1.finance.yahoo.com/*"
+    "https://query1.finance.yahoo.com/*",
+    "https://symbol-search.tradingview.com/*"
   ],
+  "declarative_net_request": {
+    "rule_resources": [{
+      "id": "ruleset_1",
+      "enabled": true,
+      "path": "rules.json"
+    }]
+  },
   "action": {
     "default_title": "Toggle EvenTrade Sidebar"
   },

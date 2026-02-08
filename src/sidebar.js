@@ -100,6 +100,24 @@ export class Sidebar {
                 background: var(--et-highlight-bg, rgba(33, 150, 243, 0.1));
                 border-left: 3px solid var(--et-accent, #2196f3);
             }
+            
+            /* Disabled (Unsupported Exchange) */
+            .wl-item.disabled .ticker-box { opacity: 0.5; cursor: not-allowed; text-decoration: line-through; }
+            .wl-item.disabled .color-marker { opacity: 0.5; }
+            
+            /* Autocomplete */
+            .ac-container { position: relative; flex: 1; }
+            .ac-list {
+                position: absolute; top: 100%; left: 0; right: 0; z-index: 1000;
+                background: var(--et-bg, #ffffff); border: 1px solid var(--et-border, #e0e0e0);
+                border-top: none; max-height: 200px; overflow-y: auto;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: none;
+            }
+            .ac-item { padding: 8px; cursor: pointer; border-bottom: 1px solid var(--et-border, #e0e0e0); display: flex; flex-direction: column; }
+            .ac-item:hover, .ac-item.active { background: var(--et-row-hover, #f5f5f5); }
+            .ac-item .ac-symbol { font-weight: bold; font-size: 13px; }
+            .ac-item .ac-name { font-size: 11px; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .ac-item .ac-exc { font-size: 10px; color: #999; margin-top: 2px; }
         `;
     this.shadow.appendChild(style);
   }
@@ -217,7 +235,10 @@ export class Sidebar {
     actions.style.borderBottom = '1px solid var(--et-border, #e0e0e0)';
     actions.innerHTML = `
             <div style="display:flex; gap:5px; margin-bottom:10px;">
-                <input type="text" id="add-input" placeholder="Symbol (e.g. TATA)" style="flex:1; padding:6px; border-radius:4px; border:1px solid var(--et-border, #e0e0e0); background:var(--et-bg, #ffffff); color:var(--et-fg, #333333);">
+                <div class="ac-container">
+                    <input type="text" id="add-input" placeholder="Symbol (e.g. TATA)" style="width:100%; padding:6px; border-radius:4px; border:1px solid var(--et-border, #e0e0e0); background:var(--et-bg, #ffffff); color:var(--et-fg, #333333);">
+                    <div id="autocomplete-list" class="ac-list"></div>
+                </div>
                 <button class="btn-primary" id="btn-add">Add</button>
             </div>
         `;
@@ -251,23 +272,99 @@ export class Sidebar {
         actions.innerHTML += `<div id="scan-msg" class="status-msg"></div>`;
     }
 
-    const addFn = async () => {
-      const val = actions.querySelector('#add-input').value.toUpperCase().trim();
+    const inputEl = actions.querySelector('#add-input');
+    const acList = actions.querySelector('#autocomplete-list');
+    let currentFocus = -1;
+
+    const addFn = async (symbolOverride, exchangeOverride) => {
+      const val = symbolOverride || inputEl.value.toUpperCase().trim();
       if (val) {
-        const exchange = await Utils.getStockExchange(val) || 'NSE';
+        // If exchangeOverride is provided, use it, else try to fetch
+        const exchange = exchangeOverride || await Utils.getStockExchange(val) || 'NSE';
         Store.addSymbol(val, exchange); 
-        actions.querySelector('#add-input').value = ''; 
+        inputEl.value = ''; 
+        acList.style.display = 'none';
         this.renderContent(); 
       }
     };
-    const inputEl = actions.querySelector('#add-input');
-    inputEl.onkeydown = (e) => { 
-        if(e.key === 'Enter') addFn(); 
-        e.stopPropagation(); 
+
+    const renderAcList = (results) => {
+        acList.innerHTML = '';
+        currentFocus = -1;
+        if (!results || results.length === 0) {
+            acList.style.display = 'none';
+            return;
+        }
+        
+        results.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'ac-item';
+            div.innerHTML = `
+                <div class="ac-symbol">${item.symbol}</div>
+                <div class="ac-name">${item.name}</div>
+                <div class="ac-exc">${item.exchange}</div>
+            `;
+            div.addEventListener('click', (e) => {
+                inputEl.value = item.symbol;
+                acList.style.display = 'none';
+                addFn(item.symbol, item.exchange);
+            });
+            acList.appendChild(div);
+        });
+        acList.style.display = 'block';
     };
+
+    inputEl.addEventListener('input', Utils.debounce(async () => {
+        const val = inputEl.value.trim();
+        if (!val) {
+            acList.style.display = 'none';
+            return;
+        }
+        const results = await Utils.searchSymbols(val);
+        renderAcList(results);
+    }, 300));
+    
+    inputEl.addEventListener('keydown', (e) => {
+        let items = acList.querySelectorAll('.ac-item');
+        if (e.key === 'ArrowDown') {
+            currentFocus++;
+            addActive(items);
+            e.preventDefault();
+        } else if (e.key === 'ArrowUp') {
+            currentFocus--;
+            addActive(items);
+            e.preventDefault();
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            if (currentFocus > -1 && items[currentFocus]) {
+                items[currentFocus].click();
+            } else {
+                addFn();
+            }
+        }
+        e.stopPropagation();
+    });
+
+    const addActive = (items) => {
+        if (!items || items.length === 0) return false;
+        items.forEach(item => item.classList.remove('active'));
+        if (currentFocus >= items.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = items.length - 1;
+        items[currentFocus].classList.add('active');
+        items[currentFocus].scrollIntoView({ block: 'nearest' });
+    };
+
     inputEl.onkeyup = (e) => e.stopPropagation();
     inputEl.onkeypress = (e) => e.stopPropagation();
-    actions.querySelector('#btn-add').onclick = addFn;
+    
+    // Close dropdown clicks outside
+    document.addEventListener('click', (e) => {
+        if (!actions.contains(e.target)) {
+            acList.style.display = 'none';
+        }
+    });
+
+    actions.querySelector('#btn-add').onclick = () => addFn();
 
     const handleScan = async (all) => {
       const msg = actions.querySelector('#scan-msg');
@@ -304,21 +401,35 @@ export class Sidebar {
     Store.activeWatchlist.symbols.forEach((item, index) => {
       const row = document.createElement('div');
       row.className = 'wl-item';
+      
+      const isIndianStock = ['NSE', 'BSE', 'NSI'].includes(item.exchange);
+      const isUnsupportedOnCurrentSite = (isZerodha || isScreener) && !isIndianStock;
+      
       if (index === this.highlightedIndex) row.classList.add('highlighted');
+      if (isUnsupportedOnCurrentSite) row.classList.add('disabled');
+      
       row.dataset.index = index; // Keep index for ref
+      
+      const titleAttr = isUnsupportedOnCurrentSite ? `title="Not supported on ${isZerodha ? 'Zerodha' : 'Screener.in'}. Use TradingView."` : '';
+      
       row.innerHTML = `
                 <div class="color-marker ${item.color || 'none'}"></div>
-                <div class="ticker-box">
+                <div class="ticker-box" ${titleAttr}>
                     <div class="ticker">${item.ticker}</div>
                     <div class="exc">${item.exchange}</div>
                 </div>
-                <button class="icon-btn" id="scr-${item.ticker}" title="Open in Screener">${ICONS.screener}</button>
+                <button class="icon-btn" id="scr-${item.ticker}" title="Open in Screener" ${isUnsupportedOnCurrentSite ? 'disabled style="opacity:0.2;cursor:not-allowed;"' : ''}>${ICONS.screener}</button>
                 <button class="icon-btn" id="tv-${item.ticker}" title="Open in TradingView">${ICONS.tv}</button>
                 <button class="icon-btn" id="del-${item.ticker}" title="Remove">${ICONS.trash}</button>
             `;
 
       row.querySelector('.color-marker').onclick = () => { Store.toggleColor(item.ticker); this.renderContent(); };
       row.querySelector('.ticker-box').onclick = async (e) => {
+        if (isUnsupportedOnCurrentSite) {
+            alert(`This stock is from ${item.exchange} and is not supported on this platform. Please use TradingView.`);
+            return;
+        }
+
         let ticker = item.ticker;
         let exchange = item.exchange;
 
@@ -353,8 +464,13 @@ export class Sidebar {
             window.location.href = url;
         }
       };
-      row.querySelector(`[id="scr-${item.ticker}"]`).onclick = (e) => {
+      const scrBtn = row.querySelector(`[id="scr-${item.ticker}"]`);
+      scrBtn.onclick = (e) => {
         e.stopPropagation();
+        if (isUnsupportedOnCurrentSite) {
+            alert(`This stock is from ${item.exchange} and is not supported on Screener.in.`);
+            return;
+        }
         window.open(`https://www.screener.in/company/${item.ticker}/`, '_blank');
       };
       row.querySelector(`[id="tv-${item.ticker}"]`).onclick = async (e) => {

@@ -51,6 +51,10 @@
 - **BSE Resolver:** Resolves numeric BSE codes to symbols via background fetch if needed.
 
 ## Recent Changes
+- **v3.9 (Global Search & Autocomplete):**
+  - **Autocomplete Search:** Enhanced manual symbol addition with an autocomplete dropdown powered by TradingView search API. Shows Symbol, Company Name, and Exchange, supporting keyboard navigation (Up/Down/Enter).
+  - **Global Exchanges:** Removed NSE/BSE restriction for searching, allowing stocks from any global exchange to be added.
+  - **Context-Aware Disabling:** Stocks from outside Indian exchanges (NSE/BSE/NSI) are visually marked as disabled when browsing `screener.in` or `zerodha.com`, with alerts explaining they are unsupported on those platforms (to prevent broken links). They remain fully functional on TradingView.
 - **v3.8 (Zerodha & Yahoo API):**
   - **Zerodha Support:** Added support for scanning Zerodha Holdings page (`kite.zerodha.com/holdings`).
   - **Auto-Exchange Resolution:** Integrated Yahoo Finance API to automatically detect exchange (NSE/BSE) for manually added symbols and Zerodha holdings (e.g. `ROBU` -> `BSE`).
