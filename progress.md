@@ -3,7 +3,7 @@
 > **Note:** This file maintains the current state of the project. It **MUST** be updated whenever functionality changes or code is refactored.
 
 ## Overview
-**Project:** EvenTrade - Screener.in Assistant
+**Project:** EvenTrade - Super Watchlist for stocks Zerodha, Trading View & Screener
 **Version:** 3.7 (Watchlist Actions)
 **Type:** Chrome Extension
 **Core Functionality:** Enhances Screener.in with a sidebar for watchlists, TradingView chart integration, and bulk scanning capabilities.

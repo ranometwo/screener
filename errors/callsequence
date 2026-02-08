@@ -1,0 +1,84 @@
+pwa.bb2d31cc8b94.js:20 setupA2HS
+logger.js:36 [EvenTrade] EvenTrade: Initializing...
+logger.js:36 [EvenTrade] Logger level set to INFO
+logger.js:36 [EvenTrade] Logger level set to INFO
+logger.js:36 [EvenTrade] [Store] Init complete. Loaded 4 watchlists.
+logger.js:36 [EvenTrade] EvenTrade: Ready
+(index):1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at Sidebar.toggle (sidebar.js:660:62)
+    at btnClose.onclick (sidebar.js:163:49)
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at Sidebar.toggle (sidebar.js:660:62)
+    at btnClose.onclick (sidebar.js:163:49)
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at Sidebar.toggle (sidebar.js:660:62)
+    at btnClose.onclick (sidebar.js:163:49)
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at Sidebar.toggle (sidebar.js:660:62)
+    at btnClose.onclick (sidebar.js:163:49)
+
+
+    pwa.bb2d31cc8b94.js:20 setupA2HS
+logger.js:36 [EvenTrade] EvenTrade: Initializing...
+logger.js:36 [EvenTrade] Logger level set to INFO
+logger.js:36 [EvenTrade] Logger level set to INFO
+logger.js:36 [EvenTrade] [Store] Init complete. Loaded 5 watchlists.
+logger.js:36 [EvenTrade] EvenTrade: Ready
+low-on-10-year-average-earnings/:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+logger.js:36 [EvenTrade] Logger level set to INFO
+logger.js:36 [EvenTrade] Logger level set to INFO
+logger.js:36 [EvenTrade] [Scanner] isZerodha: false, URL: https://www.screener.in/screens/6994/low-on-10-year-average-earnings/
+logger.js:36 [EvenTrade] Logger level set to INFO
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at div.querySelector.onchange (sidebar.js:409:114)
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at Sidebar.toggle (sidebar.js:660:62)
+    at btnClose.onclick (sidebar.js:163:49)
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at Sidebar.toggle (sidebar.js:660:62)
+    at btnClose.onclick (sidebar.js:163:49)
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at Sidebar.toggle (sidebar.js:660:62)
+    at btnClose.onclick (sidebar.js:163:49)
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at Sidebar.toggle (sidebar.js:660:62)
+    at btnClose.onclick (sidebar.js:163:49)
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at Sidebar.toggle (sidebar.js:660:62)
+    at btnClose.onclick (sidebar.js:163:49)
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at Sidebar.toggle (sidebar.js:660:62)
+    at btnClose.onclick (sidebar.js:163:49)
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at Sidebar.toggle (sidebar.js:660:62)
+    at btnClose.onclick (sidebar.js:163:49)
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at Sidebar.toggle (sidebar.js:660:62)
+    at btnClose.onclick (sidebar.js:163:49)
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at Sidebar.toggle (sidebar.js:660:62)
+    at btnClose.onclick (sidebar.js:163:49)
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at Sidebar.toggle (sidebar.js:660:62)
+    at btnClose.onclick (sidebar.js:163:49)
+store.js:64 Uncaught Error: Extension context invalidated.
+    at Object.save (store.js:64:26)
+    at Sidebar.toggle (sidebar.js:660:62)
+    at btnClose.onclick (sidebar.js:163:49)
+

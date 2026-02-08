@@ -61,14 +61,29 @@ export const Store = {
 
   save() {
     Logger.debug("[Store] Saving state to LOCAL storage...");
-    chrome.storage.local.set({ [STORAGE_KEYS.DATA]: this.state }, () => {
-      if (chrome.runtime.lastError) {
-        Logger.error(`[Store] Save failed: ${chrome.runtime.lastError.message}`);
-        console.error("Storage Error:", chrome.runtime.lastError);
-      } else {
-        Logger.debug("[Store] State saved successfully.");
-      }
-    });
+    const chromeApi = globalThis.chrome;
+    if (!chromeApi?.storage?.local?.set) {
+      Logger.warn("[Store] Storage API unavailable; skipping save.");
+      this.applyTheme();
+      Logger.setLevel(this.state.settings.logLevel);
+      return;
+    }
+
+    try {
+      chromeApi.storage.local.set({ [STORAGE_KEYS.DATA]: this.state }, () => {
+        const lastError = chromeApi.runtime?.lastError;
+        if (lastError) {
+          Logger.error(`[Store] Save failed: ${lastError.message}`);
+          console.error("Storage Error:", lastError);
+        } else {
+          Logger.debug("[Store] State saved successfully.");
+        }
+      });
+    } catch (e) {
+      const message = e && e.message ? e.message : String(e);
+      Logger.error(`[Store] Save failed: ${message}`);
+      console.error("Storage Error:", e);
+    }
     this.applyTheme();
     // Update logger level on save
     Logger.setLevel(this.state.settings.logLevel);
