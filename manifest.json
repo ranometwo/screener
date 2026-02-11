@@ -8,6 +8,11 @@
     "declarativeNetRequest",
     "scripting"
   ],
+  "icons": {
+  "16": "bird16px.png",
+  "48": "bird48px.png",
+  "128": "bird128px.png"
+  },
   "host_permissions": [
     "https://www.screener.in/*",
     "https://in.tradingview.com/*",
